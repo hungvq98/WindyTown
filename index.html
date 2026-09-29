@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Công thức nấu ăn · Ngôi Làng Của Gió</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f5f3ec;--paper:#fffdfa;--ink:#26392f;--muted:#68786f;--line:#dbe4d9;--green:#17694c;--soft:#e8f3e9;--warn:#fff2d9;--shadow:0 14px 35px #31533a13}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Baloo 2",system-ui,sans-serif}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    h1,h2,h3,p{margin-top:0}
+    .container{width:100%;margin-inline:auto;padding-inline:12px;padding-bottom:70px}
+    @media(min-width:576px){.container{max-width:540px}}
+    @media(min-width:768px){.container{max-width:720px}}
+    @media(min-width:992px){.container{max-width:960px}}
+    @media(min-width:1200px){.container{max-width:1140px}}
+    @media(min-width:1400px){.container{max-width:1320px}}
+    header{padding:42px 0 26px}
+    .eyebrow{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+    h1{font-size:clamp(34px,5vw,56px);font-weight:800;line-height:1.13;letter-spacing:-.02em;margin:8px 0 12px}
+    header p{max-width:800px;color:var(--muted);margin:0}
+    .notice{background:var(--warn);border:1px solid #ead9ae;border-left:5px solid #bc893d;border-radius:14px;padding:13px 17px;margin-bottom:22px;color:#695332}
+    .layout{display:grid;grid-template-columns:minmax(290px,380px) minmax(0,1fr);gap:18px;align-items:start}
+    .layout>*{min-width:0}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}
+    .catalog{padding:19px;position:sticky;top:16px}
+    .detail{padding:26px;min-height:380px;scroll-margin-top:12px}
+    .heading-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+    h2{font-size:26px;font-weight:800;line-height:1.2;margin:0 0 13px}
+    .count{font-size:13px;color:var(--green);font-weight:800;white-space:nowrap}
+    .search{width:100%;height:48px;border:1px solid #bfd2c2;background:white;border-radius:11px;padding:0 13px;outline:none;font-size:16px}
+    .search:focus{border-color:var(--green);box-shadow:0 0 0 3px #17694c20}
+    .hint{font-size:13px;color:var(--muted);margin:9px 0 14px}
+    .results{display:grid;gap:6px;max-height:calc(100vh - 250px);min-height:220px;overflow:auto;padding-right:3px}
+    .result{width:100%;border:1px solid transparent;background:transparent;text-align:left;border-radius:10px;padding:9px 11px;color:var(--ink)}
+    .result:hover,.result:focus{background:#eef5ed}
+    .result.active{border-color:#a8cdb2;background:var(--soft)}
+    .result b{display:block;font-size:15px}
+    .result small{display:block;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .empty{padding:25px;text-align:center;color:var(--muted)}
+    .recipe-number{color:var(--green);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    h3{font-size:clamp(28px,3.6vw,39px);font-weight:800;line-height:1.16;margin:5px 0 12px;overflow-wrap:anywhere}
+    .subtitle{color:var(--muted);margin-bottom:0}
+    .section-title{font-size:14px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--green);margin:28px 0 11px}
+    .chips,.base-list{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--soft);border:1px solid #d3e5d5;color:#285e42;border-radius:999px;padding:6px 11px;font-size:14px;font-weight:650}
+    .summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .summary-box{background:#f7faf5;border:1px solid var(--line);padding:15px;border-radius:12px}
+    .summary-box b{display:block;color:var(--green);font-size:26px;line-height:1.2}
+    .summary-box span{font-size:13px;color:var(--muted)}
+    .tree,.tree ul{list-style:none;margin:0;padding-left:0}
+    .tree ul{border-left:2px solid #dbe9dc;margin:7px 0 7px 15px;padding-left:19px}
+    .tree li{margin:7px 0;position:relative;min-width:0}
+    .tree ul>li:before{content:"";position:absolute;left:-19px;top:15px;width:13px;border-top:2px solid #dbe9dc}
+    .tree details{border:1px solid var(--line);border-radius:11px;background:#fbfdf9;padding:8px 10px;min-width:0}
+    .tree summary{cursor:pointer;display:flex;align-items:center;gap:8px;flex-wrap:wrap;list-style:none;overflow-wrap:anywhere}
+    .tree summary::-webkit-details-marker{display:none}
+    .tree summary:before{content:"▸";color:var(--green);font-weight:800}
+    .tree details[open]>summary:before{content:"▾"}
+    .node-name{font-weight:800;overflow-wrap:anywhere}
+    .node-id,.node-tip{font-size:12px;color:var(--muted)}
+    .leaf{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:7px 10px}
+    .leaf .node-name{font-weight:650}
+    .leaf .node-tip{background:#f1efe7;padding:2px 7px;border-radius:999px}
+    .cycle{color:#a04b36}
+    .missing{margin-top:10px;color:#8a611d;font-size:13px}
+    .base-list span{background:#f5f1e7;border:1px solid #eadfca;border-radius:9px;padding:5px 9px;font-size:14px}
+    .footer{font-size:13px;color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:16px}
+    @media(max-width:991px){.layout{grid-template-columns:1fr}.catalog{position:static}.results{max-height:min(340px,42vh);min-height:0}.detail{padding:22px}}
+    @media(max-width:575px){.container{padding-inline:14px;padding-bottom:40px}header{padding:28px 0 20px}.notice{padding:12px 14px}.layout{gap:14px}.catalog{padding:15px}.detail{padding:17px}.heading-row{align-items:center}.summary{grid-template-columns:1fr}.tree ul{margin-left:8px;padding-left:12px}.tree ul>li:before{left:-12px;width:8px}.results{max-height:min(300px,38vh)}}
+  </style>
+</head>
+<body>
+<main class="container">
+  <header><div class="eyebrow">Ngôi Làng Của Gió · nhà bếp</div><h1>Công thức nấu ăn</h1><p>Tìm món hoặc nguyên liệu, rồi mở cây công thức để xem mỗi nguyên liệu trung gian được làm từ những gì.</p></header>
+  <div class="notice">Bộ ảnh cung cấp tên món và thành phần, chưa có số lượng, giá hay chỉ số hồi phục. Cây nguyên liệu đã được bổ sung các công thức cối xay gió xác minh trong game và phân loại nguyên liệu gốc. Thành phần chưa xác minh được ghi rõ. Ảnh không có món số 1; dòng số 2 bị che một phần.</div>
+  <div class="layout">
+    <aside class="panel catalog" aria-label="Danh sách công thức"><div class="heading-row"><h2>Tra cứu món</h2><span id="resultCount" class="count"></span></div><input id="recipeSearch" class="search" type="search" autocomplete="off" placeholder="Ví dụ: trứng, cà ri, khoai tây" aria-label="Tìm món hoặc nguyên liệu"><p class="hint">Tìm cả tên món và nguyên liệu; có thể gõ không dấu.</p><div id="recipeResults" class="results"></div></aside>
+    <article id="recipeDetail" class="panel detail" aria-live="polite"></article>
+  </div>
+  <div class="footer">Danh sách món số 2–236 được chép từ 5 ảnh bạn cung cấp. Công thức cối xay gió được đối chiếu trong game ngày 26/09/2026. Phân loại nguồn nguyên liệu dựa trên cơ chế trồng trọt, chăn nuôi, câu cá và cối xay gió được mô tả tại <a href="https://play.google.com/store/apps/details?id=com.mestd.windyvillage" target="_blank" rel="noopener noreferrer">trang Google Play của game</a> và <a href="https://dvn.com.vn/ngoi-lang-cua-gio-thu-thuat-1650456874/" target="_blank" rel="noopener noreferrer">hướng dẫn cộng đồng</a>; chưa phải bảng vị trí thu thập cho từng vật phẩm.</div>
+</main>
+<script>
+  const recipeCatalogRaw = `2|Bánh bao hấp lá tre|hạt gạo thơm
+3|Bánh bao hấp|bột+bắp cải+hành tây
+4|Bánh bao ngọt|gạo thơm
+5|Bánh bao nhân cà ri|bột+bột cà ri
+6|Bánh cây|bột+sữa bò tốt+trứng gà đen
+7|Bánh dâu|bơ+bột+trứng gà+dâu
+8|Bánh hấp|bột+cà rốt+sữa bò
+9|Bánh hạt dẻ|bánh+hạt dẻ đóng chai
+10|Bánh kem phomat|bánh kem+phomat tốt
+11|Bánh kem sôcôla|bánh kem+sôcôla
+12|Bánh kem|bơ tốt+bột+trứng gà đen
+13|Bánh kếp khoai tây|bột+khoai tây+dầu ăn
+14|Bánh kẹp lúa mạch|bơ tốt+bột lúa mạch xanh+sữa bò hảo hạng
+15|Bánh kếp|bơ+bột+mật ong+trứng gà+sữa bò
+16|Bánh khoai lang hạt dẻ|khoai lang+hạt dẻ đóng chai
+17|Bánh khoai tây bí đỏ|bột+rau dền+khoai tây+bí đỏ
+18|Bánh khoai tây kem|vụn bánh mì trắng+khoai tây+dầu ăn+sữa bò
+19|Bánh khoai tây phomat|phomat+vụn bánh mì trắng+khoai tây+dầu ăn
+20|Bánh khoai tây|vụn bánh mì+khoai tây+dầu ăn
+21|Bánh mật ong|bánh+mật ong
+22|Bánh mì cà ri|bánh mì+bột cà ri
+23|Bánh mì hấp|bột+khoai lang+trứng gà
+24|Bánh mì mứt|bánh mì+mứt dâu
+25|Bánh mì nho khô|bánh mì+nho tím
+26|Bánh mì nướng|bánh mì
+27|Bánh mì pháp nướng|bánh mì+trứng gà
+28|Bánh mì rau|bánh mì+oải hương
+29|Bánh mì trắng|bột gạo
+30|Bánh mì tròn nướng|bơ thảo mộc+dầu ăn+bột
+31|Bánh mì|bột
+32|Bánh phomat|phomat+trứng gà+sữa bò
+33|Bánh pudinh bí đỏ|bơ+bí đỏ+trứng gà
+34|Bánh pudinh đậu nành|sữa đậu nành+trứng gà
+35|Bánh pudinh|trứng gà+sữa bò
+36|Bánh quy hạt óc chó|bơ+óc chó đóng chai+trứng gà+bột
+37|Bánh quy sôcôla|bánh quy+sôcôla
+38|Bánh quy thảo mộc|phomat thảo mộc+hoa cúc+bột+trứng gà
+39|Bánh quy|bơ+bột+trứng gà
+40|Bánh rán|bơ+bột+dầu ăn+trứng gà+sữa bò
+41|Bánh sôcôla|bánh+sôcôla
+42|Bánh táo|bơ+bột+trứng gà+táo
+43|Bánh thơm|bơ+bột+trứng gà+thơm
+44|Bánh trứng nấm|nấm cục+trứng gà
+45|Bánh trứng|bột+trứng gà đen (vàng)
+46|Bánh việt quất|bơ+bột+trứng gà+việt quất
+47|Bánh vua|bột lúa mạch tím+trứng gà+phomat
+48|Bánh xèo|bột+bắp cải+dầu ăn
+49|Bánh xốp kem|cam+bánh xốp+trứng gà đen+sữa bò tốt
+50|Bánh xốp|bột+trứng gà
+51|Bánh|bơ+bột+trứng gà+sữa bò
+52|Bắp cải cuộn|bắp cải
+53|Bắp nướng|bắp+bơ
+54|Bắp rang|bắp
+55|Bơ cuộn|bơ+bánh mì
+56|Bột cá nấu trứng|trứng gà đen+dầu ăn
+57|Bột lọc phomat|phomat+bột
+58|Cá hầm|cá thu
+59|Cá lăn bột chiên|bột+dầu ăn+cá chẽm
+60|Cá nướng|cá chép bạc
+61|Cà phê nóng|cà phê gói
+62|Cà phê sữa|cà phê nóng+sữa bò
+63|Cà ri cầu vồng|cơm cà ri+rau dền+cà chua+rong biển+sữa bò hảo hạng
+64|Cà ri cay|chén cơm+ớt vàng+bột cà ri+gia vị
+65|Cà ri huyền thoại|cà ri cầu vồng+cà ri sữa+món ăn thất bại
+66|Cà ri khô|chén cơm+yogurt+khoai tây+bột cà ri
+67|Cà ri rất ngon|cà ri cầu vồng+cà ri rong biển+món ăn thất bại
+68|Cà ri rau|chén cơm+rau dền+măng tây+bột cà ri
+69|Cà ri rong biển|chén cơm+rong biển+bột cà ri
+70|Cà ri sữa|chén cơm+bột cà ri+sữa bò
+71|Cà rốt hầm sữa|hành tây+cà rốt+sữa bò
+72|Cà tím nước tương|cà tím+nước tương
+73|Cà tím nướng|cà tím
+74|Cá ướp|cá ngừ+hành tây+dầu ô liu
+75|Cá và khoai tây chiên|bột+khoai tây+dầu ăn+cá chẽm
+76|Cá xay|cá bống đen
+77|Canh bắp|bơ+bắp+sữa bò
+78|Canh bí đỏ|bí đỏ
+79|Canh củ cải đỏ|củ cải đỏ+sữa bò
+80|Canh hành tây|bơ+hành tây
+81|Canh khoai tây|phomat+bơ+khoai tây+hành tây
+82|Canh măng tây|măng tây
+83|Canh rau|phomat thảo mộc+hành tây+hoa cúc
+84|Canh trứng|hành tây+trứng gà
+85|Capuchino|cà phê nóng+sữa bò tốt
+86|Cháo sữa|chén cơm+sữa bò
+87|Cháo thảo mộc|chén cơm+phomat thảo mộc
+88|Cháo|chén cơm
+89|Chén cơm|gạo
+90|Chuối phủ sôcôla|chuối+sôcôla
+91|Cocktail trái cây|chai rượu vang đỏ+chuối+táo
+92|Cơm bọc đậu phụ|chén cơm+đậu hủ chiên
+93|Cơm cà ri|chén cơm+bột cà ri
+94|Cơm chiên trứng|chén cơm+rong biển+trứng gà
+95|Cơm chiên|chén cơm+dầu ăn+trứng gà
+96|Cơm đút lò|bơ+bột+chén cơm+hành tây+sữa bò
+97|Cơm mì chiên|bột gạo+bắp cải+cà rốt+dầu ăn
+98|Cơm nấm càng cua|chén cơm+nấm càng cua
+99|Cơm nắm chiên|cơm nắm+dầu ăn
+100|Cơm nấm|chén cơm+nấm đông cô+nấm càng cua
+101|Cơm nắm|chén cơm+rong biển
+102|Cơm tấm|chén cơm+đậu hủ chiên+cà rốt+nấm đông cô
+103|Cơm thập cẩm|chén cơm+cà chua+hành tây
+104|Cơm tôm lăn bột chiên|chén cơm+tôm lăn bột chiên
+105|Cơm trộn hạt dẻ|hạt dẻ đóng chai+chén cơm
+106|Cơm trứng chiên|chén cơm+dầu ăn+trứng gà+sữa bò
+107|Cơm trứng|chén cơm+trứng gà
+108|Cơm ý|chén cơm+cà chua+hành tây+dầu ăn
+109|Củ cải trắng xào|củ cải trắng+bơ
+110|Đậu hủ chiên|đậu hủ+dầu ăn
+111|Đậu hủ hấp giấy bạc|đậu hủ chiên+cà rốt+đậu nành
+112|Đậu hủ khô|đậu hủ
+113|Đậu hủ lăn bột chiên|đậu hủ+bột+dầu ăn
+114|Đậu hủ lạnh|đậu hủ+rong biển
+115|Đậu hủ luộc|đậu hủ+sữa đậu nành
+116|Đậu hủ nhồi thịt bò|đậu hủ+dầu ăn+nấm càng cua
+117|Đậu hũ nóng|sữa đậu nành
+118|Đậu hủ nước tương|đậu hủ+nước tương
+119|Đậu hủ|đậu nành
+120|Gạo thơm rang|gạo thơm+rong biển
+121|Gạo thơm rang|gạo thơm+rong biển
+122|Giò cháo quẩy|bột+dầu ăn+trứng gà vàng
+123|Gỏi cá sống|hải sản sống cắt lát+dầu ô liu
+124|Gỏi cuốn|bột gạo+bắp cải+cà rốt
+125|Há cảo chiên|bột+bắp cải+hành tây+nấm đông cô
+126|Há cảo|bột+cà rốt+nấm đông cô+nấm càng cua
+127|Hải sản sống cắt lát|cá ngừ
+128|Kem lạnh|bơ+trứng gà đen
+129|Kẹo dâu|dâu+gạo thơm
+130|Khoai lang luộc|bơ+khoai lang+trứng gà
+131|Khoai lang nướng|khoai lang
+132|Khoai tây chiên kiểu Pháp|khoai tây+dầu ăn
+133|Khoai tây luộc|bơ+khoai tây
+134|Khoai tây nghiền chiên|phomat thảo mộc+bột+khoai tây+dầu ăn
+135|Ly bia|chai bia
+136|Ly rượu 4 mùa|chai rượu 4 mùa
+137|Ly rượu anh đào|chai rượu anh đào
+138|Ly rượu cà chua|chai rượu cà chua
+139|Ly rượu cam|chai rượu cam
+140|Ly rượu cham-panh|chai rượu cham-panh
+141|Ly rượu chicha|chai rượu chicha
+142|Ly rượu chuối|chai rượu chuối
+143|Ly rượu đào|chai rượu đào
+144|Ly rượu dâu|chai rượu dâu
+145|Ly rượu hạt dẻ|chai rượu hạt dẻ
+146|Ly rượu mật ong|chai rượu mật ong
+147|Ly rượu táo|chai rượu táo (+)
+148|Ly rượu thơm|chai rượu thơm
+149|Ly rượu vang đỏ|chai rượu vang đỏ
+150|Ly rượu vang hồng|chai rượu vang hồng
+151|Ly rượu vang trắng|chai rượu vang trắng
+152|Ly rượu việt quất|chai rượu việt quất
+153|Mì lạnh tôm lăn bột chiên|mì lạnh+tôm lăn bột chiên
+154|Mì lạnh|bột lúa mạch xanh
+155|Mì ống phomat|pageti+phomat
+156|Mì sa lách|pageti+sa lách thập cẩm
+157|Mì udon chiên|mì udon+dầu ăn
+158|Mì udon tôm lăn bột chiên|mì udon+tôm lăn bột chiên
+159|Mì udon|cá xay+bột
+160|Mì xào|mì lạnh+dầu ăn
+161|Mứt dâu|dâu
+162|Mứt nho tím|nho tím
+163|Mứt táo|táo
+164|Mứt việt quất|việt quất
+165|Nấm độc chiên|nấm độc+dầu ăn
+166|Nấm hấp|nấm đông cô
+167|Nấm nướng|dầu ăn+nấm càng cua
+168|Ngũ cốc bắp|bắp+sữa bò
+169|Nui nghiền hành tây|nui mì xào+phomat+hành tây
+170|Nui xào mì|pageti+cà chua
+171|Nước sốt cà chua|cà chua+bánh mì+dầu ô liu
+172|Nước sốt dầu|bánh mì+phomat+dầu hạt nho tím
+173|Nước sốt hồng|bánh mì+ly rượu vang đỏ+phomat
+174|Nước sốt phomat|bánh mì+phomat
+175|Nước sốt sôcôla|bánh mì+sôcôla
+176|Nước sốt ớt bột|ớt vàng+dầu ô liu
+177|Pageti|bột+dầu ăn
+178|Pa-get-ti rau|bột+dầu thảo mộc+bơ thảo mộc
+179|Phomat nấu chảy|phomat+khoai tây
+180|Pizza|phomat+bột+cà chua
+181|Rau xào thập cẩm|bắp cải+cà rốt+dầu ăn+nấm đông cô
+182|Rau xào|bắp cải+dầu ăn
+183|Rong biển hầm|rong biển
+184|Sa lách cà chua|cà chua
+185|Sa lách củ cải trắng|củ cải trắng
+186|Sa lách dầm cà|phomat+cà chua+dầu ăn
+187|Sa lách hành tây|hành tây
+188|Sa lách khoai tây|khoai tây+sữa bò
+189|Sa lách mì ống|pageti+dưa leo+cà chua
+190|Salách rau|hoa cúc+oải hương+bạc hà
+191|Salách thập cẩm|dưa leo+hành tây
+192|Sanwich rau|bánh mì+hoa cúc+bạc hà+oải hương
+193|Sanwich trái cây|bánh mì+yogurt+chuối
+194|Sanwich|bánh mì+dưa leo+cà chua
+195|Sữa đậu nành|đậu que+đậu nành
+196|Sữa nóng|sữa bò
+197|Súp hải sản|cà chua+cá hồi+hành tây
+198|Súp khoai tây nghiền|bơ+khoai tây+hành tây
+199|Súp lạnh|bánh mì+dưa leo+cà chua+hành tây
+200|Súp lơ xào|súp lơ+dầu ăn
+201|Súp pageti|pageti+súp khoai tây nghiền
+202|Sushi|hải sản sống cắt lát+chén cơm
+203|Tách hồng trà|hộp hồng trà
+204|Tách nước ép trà|hộp nước ép trà
+205|Tách trà 4 mùa|hộp trà 4 mùa
+206|Tách trà anh đào|hộp trà anh đào
+207|Tách trà táo|hộp trà táo
+208|Tách trà bạc hà|hộp trà bạc hà
+209|Tách trà cam|hộp trà cam
+210|Tách trà chuối|hộp trà chuối
+211|Tách trà đào|hộp trà đào
+212|Tách trà dâu|hộp trà dâu
+213|Tách trà hè|hộp trà hè
+214|Tách trà hoa cúc|hộp trà hoa cúc
+215|Tách trà lá non|hộp trà lá non
+216|Tách trà lá|hộp trà lá
+217|Tách trà Nga|hộp trà xanh+mứt táo
+218|Tách trà nho tím|hộp trà nho tím
+219|Tách trà nho xanh|hộp trà nho xanh
+220|Tách trà ô long|hộp trà ô long
+221|Tách trà oải hương|hộp trà oải hương
+222|Tách trà sữa|hộp trà xanh+sữa bò
+223|Tách trà thơm|hộp trà thơm
+224|Tách trà thu|hộp trà thu
+225|Tách trà việt quất|hộp trà việt quất
+226|Tách trà xanh|hộp trà xanh
+227|Tách trà xuân|hộp trà xuân
+228|Táo hầm nhừ|bơ+táo
+229|Thịt hầm|bột+khoai tây+cà rốt
+230|Tô sushi|hải sản sống cắt lát+chén cơm+trứng gà
+231|Tôm lăn bột chiên|bột+cà tím+dầu ăn+trứng gà
+232|Trái cây bột viên|chuối+táo+bột làm bột viên
+233|Trứng chiên|trứng gà+dầu ăn
+234|Trứng hồng đào|trứng gà đen (vàng)
+235|Trứng luộc|trứng gà
+236|Trứng ốp la|trứng gà+dầu ăn+sữa bò`;
+  const recipes = recipeCatalogRaw.trim().split('\n').map(line => {
+    const [id, name, raw] = line.split('|');
+    return {id: Number(id), name, ingredients: raw.split('+').map(item => item.trim())};
+  });
+  const windmillRecipes = [
+    {id:174,name:'Pho-mát',ingredients:['sữa bò'],kind:'windmill'},
+    {id:177,name:'Pho-mát thảo mộc',ingredients:['hoa cúc','sữa bò'],kind:'windmill'},
+    {id:180,name:'Yogurt',ingredients:['bạc hà','sữa bò'],kind:'windmill'},
+    {id:185,name:'Bơ',ingredients:['dầu ăn','sữa bò'],kind:'windmill'}
+  ];
+  const normalize = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLocaleLowerCase('vi');
+  const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const recipesByName = new Map();
+  [...recipes,...windmillRecipes].forEach(recipe => {const key=normalize(recipe.name); if(!recipesByName.has(key)) recipesByName.set(key,recipe)});
+  const aliases = new Map([
+    ['sa lach thap cam','salach thap cam'],
+    ['com ca ri huyen thoai','ca ri huyen thoai'],
+    ['phomat','pho-mat'],
+    ['pho mat','pho-mat'],
+    ['phomat thao moc','pho-mat thao moc'],
+    ['pho mat thao moc','pho-mat thao moc']
+  ]);
+  function findRecipe(name){const key=normalize(name);return recipesByName.get(aliases.get(key)||key)||null}
+  const origins = new Map();
+  function labelOrigins(names,label){names.split('|').forEach(name=>origins.set(normalize(name),label))}
+  labelOrigins('gạo|gạo thơm|hạt gạo thơm|hành tây|khoai tây|cà chua|cà rốt|bắp cải|táo|khoai lang|bắp|chuối|dưa leo|dâu|rau dền|bí đỏ|cà tím|đậu nành|nho tím|việt quất|măng tây|củ cải trắng|củ cải đỏ|đậu que|súp lơ|ớt vàng|cam|thơm','Nông sản · trồng và thu hoạch');
+  labelOrigins('trứng gà|trứng gà đen|trứng gà vàng|trứng gà đen (vàng)|sữa bò|sữa bò tốt|sữa bò hảo hạng','Sản phẩm vật nuôi · thu hoạch');
+  labelOrigins('cá chẽm|cá ngừ|cá thu|cá chép bạc|cá bống đen|cá hồi','Cá · câu hoặc nuôi');
+  labelOrigins('rong biển','Vật phẩm biển · thu thập');
+  labelOrigins('hoa cúc|bạc hà|oải hương|nấm đông cô|nấm càng cua|nấm cục|nấm độc','Thảo mộc / nấm · cách lấy cụ thể chưa xác minh');
+  labelOrigins('bột','Cối xay gió · đã thấy công thức, chưa xác minh thành phần');
+  labelOrigins('món ăn thất bại','Kết quả nấu không thành công');
+  function originFor(name){
+    const key=normalize(name);
+    if(origins.has(key))return origins.get(key);
+    if(key.startsWith('chai ruou ')||key.startsWith('hop tra '))return 'Đồ uống thành phẩm · chưa xác minh công thức';
+    return 'Chưa xác minh công thức hoặc cách lấy';
+  }
+  function collectIngredients(recipe, seen=new Set(), intermediates=new Map(), endpoints=new Map()){
+    const key=normalize(recipe.name);
+    if(seen.has(key))return {intermediates,endpoints};
+    const next=new Set(seen);next.add(key);
+    for(const ingredient of recipe.ingredients){
+      const child=findRecipe(ingredient);
+      if(child){
+        intermediates.set(normalize(child.name),child.name);
+        collectIngredients(child,next,intermediates,endpoints);
+      }else endpoints.set(normalize(ingredient),ingredient);
+    }
+    return {intermediates,endpoints};
+  }
+  function renderIngredient(name,ancestors){
+    const child=findRecipe(name);
+    if(!child)return `<li class="leaf"><span class="node-name">${escapeHtml(name)}</span><span class="node-tip">${escapeHtml(originFor(name))}</span></li>`;
+    const key=normalize(child.name);
+    if(ancestors.has(key))return `<li class="leaf cycle">${escapeHtml(name)} · vòng lặp dữ liệu</li>`;
+    const next=new Set(ancestors);next.add(key);
+    const source=child.kind==='windmill'?'cối xay gió':'món';
+    return `<li><details open><summary><span class="node-name">${escapeHtml(name)}</span><span class="node-id">${source} #${child.id} · ${child.ingredients.length} thành phần</span></summary><ul>${child.ingredients.map(part=>renderIngredient(part,next)).join('')}</ul></details></li>`;
+  }
+  let selectedId=65;
+  const searchBox=document.getElementById('recipeSearch');
+  const results=document.getElementById('recipeResults');
+  const detail=document.getElementById('recipeDetail');
+  function renderDetail(){
+    const recipe=recipes.find(item=>item.id===selectedId);
+    if(!recipe){detail.innerHTML='<div class="empty">Chọn một món để xem cây nguyên liệu.</div>';return}
+    const {intermediates,endpoints}=collectIngredients(recipe);
+    const leaves=[...endpoints.values()].sort((a,b)=>a.localeCompare(b,'vi'));
+    const ancestors=new Set([normalize(recipe.name)]);
+    detail.innerHTML=`<div class="recipe-number">Công thức #${recipe.id}</div><h3>${escapeHtml(recipe.name)}</h3><p class="subtitle">Thành phần trực tiếp và các bước làm nguyên liệu trung gian.</p><div class="summary"><div class="summary-box"><b>${intermediates.size}</b><span>Sản phẩm trung gian có công thức</span></div><div class="summary-box"><b>${endpoints.size}</b><span>Nguyên liệu đầu cuối hoặc chưa rõ cách làm</span></div></div><div class="section-title">Nguyên liệu trực tiếp</div><div class="chips">${recipe.ingredients.map(item=>`<span class="chip">${escapeHtml(item)}</span>`).join('')}</div><div class="section-title">Cây công thức nhiều cấp</div><ul class="tree">${recipe.ingredients.map(item=>renderIngredient(item,ancestors)).join('')}</ul><div class="section-title">Nguyên liệu đầu cuối</div><div class="base-list">${leaves.map(item=>`<span title="${escapeHtml(originFor(item))}">${escapeHtml(item)}</span>`).join('')}</div>${recipe.id===2?'<p class="missing">Dòng số 2 bị che một phần trong ảnh; cần đối chiếu lại nguyên liệu.</p>':''}<p class="footer">Các tên trùng nhau được gộp trong danh sách nguyên liệu đầu cuối. Chưa thể tính số lượng cần dùng vì ảnh không ghi định lượng.</p>`;
+  }
+  function renderResults(){
+    const query=normalize(searchBox.value.trim());
+    const visible=recipes.filter(recipe=>normalize(recipe.name+' '+recipe.ingredients.join(' ')).includes(query)||recipe.id===65&&'com ca ri huyen thoai'.includes(query)&&query.length>0);
+    document.getElementById('resultCount').textContent=`${visible.length} / ${recipes.length} món`;
+    if(visible.length&&!visible.some(recipe=>recipe.id===selectedId))selectedId=visible[0].id;
+    if(!visible.length)selectedId=null;
+    results.innerHTML=visible.length?visible.map(recipe=>`<button class="result${recipe.id===selectedId?' active':''}" type="button" data-id="${recipe.id}" aria-pressed="${recipe.id===selectedId}"><b>${escapeHtml(recipe.name)}</b><small>#${recipe.id} · ${escapeHtml(recipe.ingredients.join(' · '))}</small></button>`).join(''):'<div class="empty">Không tìm thấy món phù hợp.</div>';
+    renderDetail();
+  }
+  results.addEventListener('click',event=>{
+    const button=event.target.closest('[data-id]');
+    if(!button)return;
+    selectedId=Number(button.dataset.id);
+    renderResults();
+    if(window.matchMedia('(max-width: 991px)').matches)detail.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  searchBox.addEventListener('input',renderResults);
+  renderResults();
+</script>
+</body>
+</html>

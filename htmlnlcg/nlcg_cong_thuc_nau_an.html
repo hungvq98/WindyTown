@@ -1,0 +1,246 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tra cứu công thức nấu ăn - Ngôi Làng Của Gió</title><style>
+:root{--bg:#fff8f1;--card:#fff;--ink:#332b27;--muted:#766a63;--accent:#e86f51;--line:#eadfd7}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#fff5ea,#fffdfb);color:var(--ink)}header{position:sticky;top:0;z-index:5;background:rgba(255,248,241,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.wrap{max-width:1100px;margin:auto;padding:18px}.title{font-size:clamp(24px,4vw,38px);font-weight:800;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 14px}.tools{display:grid;grid-template-columns:1fr auto;gap:10px}.search{width:100%;padding:14px 16px;border:1px solid #d8c8be;border-radius:14px;font-size:16px;background:white;outline:none}.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px #e86f5122}.btn{border:0;border-radius:14px;padding:0 16px;background:#332b27;color:#fff;font-weight:700;cursor:pointer}.stats{margin-top:10px;font-size:14px;color:var(--muted)}main.wrap{padding-top:20px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 3px 14px #6d4f3a0c}.row{display:flex;gap:10px;align-items:flex-start}.id{min-width:42px;height:32px;display:grid;place-items:center;border-radius:10px;background:#fff0e9;color:#a33e27;font-weight:800}.name{font-weight:800;font-size:17px;line-height:1.25;margin-top:4px}.ing{margin:10px 0 0;color:#554b45;line-height:1.5}.chip{display:inline-block;margin:5px 5px 0 0;padding:4px 8px;border-radius:999px;background:#f7f0eb;font-size:13px}.warn{color:#9a5b00;background:#fff3cf;padding:10px 12px;border-radius:12px;margin:0 0 16px}.empty{text-align:center;color:var(--muted);padding:50px 10px}.foot{color:var(--muted);font-size:13px;padding:28px 0 40px}mark{background:#ffe09b;border-radius:3px;padding:0 1px}@media(max-width:520px){.wrap{padding:14px}.tools{grid-template-columns:1fr}.btn{height:44px}.grid{grid-template-columns:1fr}}
+</style></head><body><header><div class="wrap"><h1 class="title">🍳 Công thức nấu ăn NLCG</h1><p class="sub">Tra theo tên món hoặc nguyên liệu • chạy offline • hỗ trợ tìm không dấu</p><div class="tools"><input id="q" class="search" placeholder="Ví dụ: cá thu, bánh mì, trứng gà, sushi…" autocomplete="off"><button class="btn" id="clear">Xóa tìm kiếm</button></div><div class="stats" id="stats"></div></div></header><main class="wrap"><p class="warn">Nguồn: 6 ảnh công thức bạn cung cấp. Mục số 1 bị cắt khỏi ảnh; một vài chữ ở mép ảnh có thể cần đối chiếu lại.</p><div id="grid" class="grid"></div><div class="foot">Mẹo: gõ một nguyên liệu như “khoai tây” để xem tất cả món có thể làm từ nguyên liệu đó.</div></main><script>
+const raw=`
+2|Bánh bao hấp lá tre|lá gạo thơm
+3|Bánh bao hấp|bột+bắp cải+hành tây
+4|Bánh bao ngọt|gạo thơm
+5|Bánh bao nhân cà ri|bột+bột cà ri
+6|Bánh cây|bột+sữa bò tốt+trứng gà đen
+7|Bánh dâu|bơ+bột+trứng gà+dâu
+8|Bánh hấp|bột+cà rốt+sữa bò
+9|Bánh hạt dẻ|bánh+hạt dẻ đóng chai
+10|Bánh kem phomat|bánh kem+phomat tốt
+11|Bánh kem sôcôla|bánh kem+sôcôla
+12|Bánh kem|bơ tốt+bột+trứng gà đen
+13|Bánh kẹp khoai tây|bột+khoai tây+dầu ăn
+14|Bánh kẹp lúa mạch|bơ tốt+bột lúa mạch xanh+sữa bò hảo hạng
+15|Bánh kẹp|bơ+bột+mật ong+trứng gà+sữa bò
+16|Bánh khoai lang hạt dẻ|khoai lang+hạt dẻ đóng chai
+17|Bánh khoai tây bí đỏ|bột+rau dền+khoai tây+bí đỏ
+18|Bánh khoai tây kem|vụn bánh mì trắng+khoai tây+dầu ăn+sữa bò
+19|Bánh khoai tây phomat|phomat+vụn bánh mì trắng+khoai tây+dầu ăn
+20|Bánh khoai tây|vụn bánh mì+khoai tây+dầu ăn
+21|Bánh mật ong|bánh+mật ong
+22|Bánh mì cà ri|bánh mì+bột cà ri
+23|Bánh mì hấp|bột+khoai lang+trứng gà
+24|Bánh mì mứt|bánh mì+mứt dâu
+25|Bánh mì nho khô|bánh mì+nho tím
+26|Bánh mì nướng|bánh mì
+27|Bánh mì pháp nướng|bánh mì+trứng gà
+28|Bánh mì rau|bánh mì+oải hương
+29|Bánh mì trắng|bột gạo
+30|Bánh mì tròn nướng|bơ thảo mộc+dầu ăn+bột
+31|Bánh mì|bột
+32|Bánh phomat|phomat+trứng gà+sữa bò
+33|Bánh pudinh bí đỏ|bơ+bí đỏ+trứng gà
+34|Bánh pudinh đậu nành|sữa đậu nành+trứng gà
+35|Bánh pudinh|trứng gà+sữa bò
+36|Bánh quy hạt óc chó|bơ+óc chó đóng chai+trứng gà+bột
+37|Bánh quy sôcôla|bánh quy+sôcôla
+38|Bánh quy thảo mộc|phomat thảo mộc+hoa cúc+bột+trứng gà
+39|Bánh quy|bơ+bột+trứng gà
+40|Bánh rán|bơ+bột+dầu ăn+trứng gà+sữa bò
+41|Bánh sôcôla|bánh+sôcôla
+42|Bánh táo|bơ+bột+trứng gà+táo
+43|Bánh thơm|bơ+bột+trứng gà+thơm
+44|Bánh trứng nấm|nấm cục+trứng gà
+45|Bánh trứng|bột+trứng gà đen (vàng)
+46|Bánh việt quất|bơ+bột+trứng gà+việt quất
+47|Bánh vua|bột lúa mạch tím+trứng gà+phomat
+48|Bánh xèo|bột+bắp cải+dầu ăn
+49|Bánh xốp kem|cam+bánh xốp+trứng gà đen+sữa bò tốt
+50|Bánh xốp|bột+trứng gà
+51|Bánh|bơ+bột+trứng gà+sữa bò
+52|Bắp cải cuộn|bắp cải
+53|Bắp nướng|bắp+bơ
+54|Bắp rang|bắp
+55|Bơ cuộn|bơ+bánh mì
+56|Bột cá nấu trứng|trứng gà đen+dầu ăn
+57|Bột lọc phomat|phomat+bột
+58|Cá hầm|cá thu
+59|Cá lăn bột chiên|bột+dầu ăn+cá chẽm
+60|Cá nướng|cá chép bạc
+61|Cà phê nóng|cà phê gói
+62|Cà phê sữa|cà phê nóng+sữa bò
+63|Cà ri cầu vồng|cơm cà ri+rau dền+cà chua+rong biển+sữa bò hảo hạng
+64|Cà ri cay|chén cơm+ớt vàng+bột cà ri+gia vị
+65|Cà ri huyền thoại|cà ri cầu vồng+cà ri sữa+món ăn thất bại
+66|Cà ri khô|chén cơm+yogurt+khoai tây+bột cà ri
+67|Cà ri rất ngon|cà ri cầu vồng+cà ri rong biển+món ăn thất bại
+68|Cà ri rau|chén cơm+rau dền+măng tây+bột cà ri
+69|Cà ri rong biển|chén cơm+rong biển+bột cà ri
+70|Cà ri sữa|chén cơm+bột cà ri+sữa bò
+71|Cà rốt hầm sữa|hành tây+cà rốt+sữa bò
+72|Cà tím nước tương|cà tím+nước tương
+73|Cà tím nướng|cà tím
+74|Cá ướp|cá ngừ+hành tây+dầu oliu
+75|Cá và khoai tây chiên|bột+khoai tây+dầu ăn+cá chẽm
+76|Cá xay|cá bóng đen
+77|Canh bắp|bột+bắp+sữa bò
+78|Canh bí đỏ|bí đỏ
+79|Canh củ cải đỏ|củ cải đỏ+sữa bò
+80|Canh hành tây|bột+hành tây
+81|Canh khoai tây|phomat+bơ+khoai tây+hành tây
+82|Canh măng tây|măng tây
+83|Canh rau|phomat thảo mộc+hành tây+hoa cúc
+84|Canh trứng hành tây|trứng gà+hành tây
+85|Capuchino|cà phê nóng+sữa bò tốt
+86|Cháo sữa|chén cơm+sữa bò
+87|Cháo thảo mộc|chén cơm+phomat thảo mộc
+88|Cháo|chén cơm
+89|Chén cơm|gạo
+90|Chuối phủ sôcôla|chuối+sôcôla
+91|Cocktail trái cây|chai rượu vang đỏ+chuối+táo
+92|Cơm bọc đậu phụ|chiên cơm+đậu hũ chiên
+93|Cơm cà ri|chén cơm+bột cà ri
+94|Cơm chiên trứng|chén cơm+rong biển+trứng gà
+95|Cơm chiên|chén cơm+dầu ăn+trứng gà
+96|Cơm đút lò|bơ+bột+chén cơm+hành tây+sữa bò
+97|Cơm mì chiên|bột gạo+bắp cải+cà rốt+dầu ăn
+98|Cơm nấm càng cua|chén cơm+nấm càng cua
+99|Cơm nấm chiên|cơm nấm+dầu ăn
+100|Cơm nấm|chén cơm+nấm đông cô+nấm càng cua
+101|Cơm nắm|chén cơm+rong biển
+102|Cơm tấm|chén cơm+đậu hũ chiên+cà rốt+nấm đông cô
+103|Cơm thập cẩm|chén cơm+cà chua+hành tây
+104|Cơm tôm lăn bột chiên|chén cơm+tôm lăn bột chiên
+105|Cơm trộn hạt dẻ|hạt dẻ đóng chai+chén cơm
+106|Cơm trứng chiên|chén cơm+dầu ăn+trứng gà+sữa bò
+107|Cơm trứng|chén cơm+trứng gà
+108|Cơm ý chiên|cơm+cà chua+hành tây+dầu ăn
+109|Củ cải trắng xào|củ cải trắng+bơ
+110|Đậu hũ chiên|đậu hũ+dầu ăn
+111|Đậu hũ hấp giấy bạc|đậu hũ chiên+cà rốt+đậu hành
+112|Đậu hũ khô|đậu hũ
+113|Đậu hũ lăn bột chiên|đậu hũ+bột+dầu ăn
+114|Đậu hũ lạnh|đậu hũ+rong biển
+115|Đậu hũ luộc|đậu hũ+sữa đậu nành
+116|Đậu hũ nhồi thịt bò|đậu hũ+dầu ăn+nấm càng cua
+117|Đậu hũ nóng|sữa đậu nành
+118|Đậu hũ nước tương|đậu hũ+nước tương
+119|Đậu hũ|đậu nành
+120|Gạo thơm rang|gạo thơm+rong biển
+121|Gạo thơm rang|gạo thơm+rong biển
+122|Giò cháo quẩy|bột+dầu ăn+trứng gà vàng
+123|Gỏi cá sống|hải sản sống cắt lát+dầu ô liu
+124|Gỏi cuốn|bột gạo+bắp cải+cà rốt
+125|Há cảo chiên|bột+bắp cải+hành tây+nấm đông cô
+126|Há cảo|bột+cà rốt+nấm đông cô+nấm càng cua
+127|Hải sản sống cắt lát|cá ngừ
+128|Kem lạnh|bơ+trứng gà đen
+129|Kẹo dầu|dầu+gạo thơm
+130|Khoai lang luộc|bơ+khoai lang+trứng gà
+131|Khoai lang nướng|khoai lang
+132|Khoai tây chiên kiểu Pháp|khoai tây+dầu ăn
+133|Khoai tây luộc|bơ+khoai tây
+134|Khoai tây nghiền chiên|phomat thảo mộc+bột+khoai tây+dầu ăn
+135|Ly bia|chai bia
+136|Ly rượu 4 mùa|chai rượu 4 mùa
+137|Ly rượu anh đào|chai rượu anh đào
+138|Ly rượu cà chua|chai rượu cà chua
+139|Ly rượu cam|chai rượu cam
+140|Ly rượu cham-panh|chai rượu cham-panh
+141|Ly rượu chicha|chai rượu chicha
+142|Ly rượu chuối|chai rượu chuối
+143|Ly rượu đào|chai rượu đào
+144|Ly rượu dâu|chai rượu dâu
+145|Ly rượu hạt dẻ|chai rượu hạt dẻ
+146|Ly rượu mật ong|chai rượu mật ong
+147|Ly rượu táo|chai rượu táo (+)
+148|Ly rượu thơm|chai rượu thơm
+149|Ly rượu vang đỏ|chai rượu vang đỏ
+150|Ly rượu vang hồng|chai rượu vang hồng
+151|Ly rượu vang trắng|chai rượu vang trắng
+152|Ly rượu việt quất|chai rượu việt quất
+153|Mì lạnh tôm lăn bột chiên|mì lạnh+tôm lăn bột chiên
+154|Mì lạnh|bột lúa mạch xanh
+155|Mì ống phomat|pageti+phomat
+156|Mì sa lách|pageti+sa lách thập cẩm
+157|Mì udon chiên|mì udon+dầu ăn
+158|Mì udon tôm lăn bột chiên|mì udon+tôm lăn bột chiên
+159|Mì udon|cá xay+bột
+160|Mì xào|mì lạnh+dầu ăn
+161|Mứt dâu|dâu
+162|Mứt nho tím|nho tím
+163|Mứt táo|táo
+164|Mứt việt quất|việt quất
+165|Nấm độc chiên|nấm độc+dầu ăn
+166|Nấm hấp|nấm đông cô
+167|Nấm nướng|dầu ăn+nấm càng cua
+168|Ngũ cốc bắp|bắp+sữa bò
+169|Nui nghiền hành tây|nui mì xào+phomat+hành tây
+170|Nui xào mì|pageti+cà chua
+171|Nước sốt cà chua|cà chua+bánh mì+dầu oliu
+172|Nước sốt dầu|bánh mì+phomat+dầu hạt nho tím
+173|Nước sốt hồng|bánh mì+ly rượu vang đỏ+phomat
+174|Nước sốt phomat|bánh mì+phomat
+175|Nước sốt sôcôla|bánh mì+sôcôla
+176|Nước xốt ớt bột|ớt vàng+dầu ôliu
+177|Pageti|bột+dầu ăn
+178|Pa-get-ti rau|bột+dầu thảo mộc+bơ thảo mộc
+179|Phomat nấu chảy|phomat+khoai tây
+180|Pizza|phomat+bột+cà chua
+181|Rau xào thập cẩm|bắp cải+cà rốt+dầu ăn+nấm đông cô
+182|Rau xào|bắp cải+dầu ăn
+183|Rong biển hầm|rong biển
+184|Sa lách cà chua|cà chua
+185|Sa lách củ cải trắng|củ cải trắng
+186|Sa lách dấm cà|phomat+cà chua+dầu ăn
+187|Sa lách hành tây|hành tây
+188|Sa lách khoai tây|khoai tây+sữa bò
+189|Sa lách mì ống|pageti+dưa leo+cà chua
+190|Salách rau|hoa cúc+oải hương+bạc hà
+191|Salách thập cẩm|dưa leo+hành tây
+192|Sanwich rau|bánh mì+hoa cúc+bạc hà+oải hương
+193|Sanwich trái cây|bánh mì+yogurt+chuối
+194|Sanwich|bánh mì+dưa leo+cà chua
+195|Sữa đậu nành|đậu que+đậu nành
+196|Sữa nóng|sữa bò
+197|Súp hải sản|cà chua+cá hồi+hành tây
+198|Súp khoai tây nghiền|bơ+khoai tây+hành tây
+199|Súp lạnh|bánh mì+dưa leo+cà chua+hành tây
+200|Súp lơ xào|súp lơ+dầu ăn
+201|Súp pageti|pageti+súp khoai tây nghiền
+202|Sushi|hải sản sống cắt lát+chén cơm
+203|Tách hồng trà|hộp hồng trà
+204|Tách nước ép trà|hộp nước ép trà
+205|Tách trà 4 mùa|hộp trà 4 mùa
+206|Tách trà anh đào|hộp trà anh đào
+207|Tách trà áo|hộp trà táo
+208|Tách trà bạc hà|hộp trà bạc hà
+209|Tách trà cam|hộp trà cam
+210|Tách trà chuối|hộp trà chuối
+211|Tách trà đào|hộp trà đào
+212|Tách trà dâu|hộp trà dâu
+213|Tách trà hè|hộp trà hè
+214|Tách trà hoa cúc|hộp trà hoa cúc
+215|Tách trà lá non|hộp trà lá non
+216|Tách trà lá|hộp trà lá
+217|Tách trà Nga|hộp trà xanh+mứt táo
+218|Tách trà nho tím|hộp trà nho tím
+219|Tách trà nho xanh|hộp trà nho xanh
+220|Tách trà ô long|hộp trà ô long
+221|Tách trà oải hương|hộp trà oải hương
+222|Tách trà sữa|hộp trà xanh+sữa bò
+223|Tách trà thơm|hộp trà thơm
+224|Tách trà thu|hộp trà thu
+225|Tách trà việt quất|hộp trà việt quất
+226|Tách trà xanh|hộp trà xanh
+227|Tách trà xuân|hộp trà xuân
+228|Táo hầm nhừ|bơ+táo
+229|Thịt hầm|bột+khoai tây+cà rốt
+230|Tô sushi|hải sản sống cắt lát+chén cơm+trứng gà
+231|Tôm lăn bột chiên|bột+cà tím+dầu ăn+trứng gà
+232|Trái cây bột viên|chuối+táo+bột làm bột viên
+233|Trứng chiên|trứng gà+dầu ăn
+234|Trứng hồng đào|trứng gà đen (vàng)
+235|Trứng luộc|trứng gà
+236|Trứng ốp la|trứng gà+dầu ăn+sữa bò`;
+const data=raw.trim().split('\n').map(x=>{const [id,name,...rest]=x.split('|');return {id:+id,name,ing:rest.join('|')}});
+const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase();
+const q=document.getElementById('q'),grid=document.getElementById('grid'),stats=document.getElementById('stats');
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){const s=norm(q.value.trim());const rows=data.filter(x=>!s||norm(x.name+' '+x.ing+' '+x.id).includes(s));stats.textContent=`Hiển thị ${rows.length} / ${data.length} công thức trong ảnh (mục #1 không có trong ảnh).`;if(!rows.length){grid.innerHTML='<div class="empty">Không tìm thấy công thức phù hợp.</div>';return}grid.innerHTML=rows.map(x=>`<article class="card"><div class="row"><div class="id">#${x.id}</div><div class="name">${esc(x.name)}</div></div><p class="ing">${x.ing.split('+').map(v=>`<span class="chip">${esc(v.trim())}</span>`).join('')}</p></article>`).join('')}
+q.addEventListener('input',render);document.getElementById('clear').onclick=()=>{q.value='';q.focus();render()};render();
+</script></body></html>

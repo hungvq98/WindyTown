@@ -3,16 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cẩm Nang Ngôi Làng Của Gió - NLCG Cẩm Nang &amp; Công Thức</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&amp;display=swap" rel="stylesheet">
+  <title>Cẩm Nang Ngôi Làng Của Gió - NLCG Offline</title>
   <style>
     /* =========================================
        CSS VARIABLES & THEME
        ========================================= */
     :root {
-      --font-family: "Baloo 2", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --bg-gradient: linear-gradient(135deg, #fefae0 0%, #faedcd 50%, #e9edc9 100%);
       --bg-body: #fdfbf7;
       --card-bg: rgba(255, 255, 255, 0.9);
@@ -1144,419 +1141,6 @@
         padding: 10px 12px;
       }
     }
-
-    /* =========================================
-       RECIPE TREE VIEW & MODAL STYLES (INTEGRATED)
-       ========================================= */
-    .view-toggle-wrap {
-      display: inline-flex;
-      gap: 4px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 3px;
-      border-radius: var(--radius-pill);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .view-toggle-btn {
-      border: none;
-      background: transparent;
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-
-    .view-toggle-btn:hover {
-      color: var(--text-main);
-      background: var(--primary-soft);
-    }
-
-    .view-toggle-btn.active {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(88, 129, 87, 0.35);
-    }
-
-    .recipe-tree-layout {
-      display: grid;
-      grid-template-columns: minmax(290px, 360px) minmax(0, 1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .tree-catalog {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      padding: 16px;
-      box-shadow: var(--shadow-sm);
-      position: sticky;
-      top: 80px;
-    }
-
-    .tree-catalog-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .tree-catalog-title {
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--text-main);
-    }
-
-    .tree-results {
-      display: grid;
-      gap: 6px;
-      max-height: calc(100vh - 270px);
-      min-height: 240px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .tree-result-btn {
-      width: 100%;
-      border: 1px solid transparent;
-      background: transparent;
-      text-align: left;
-      border-radius: var(--radius-sm);
-      padding: 9px 12px;
-      color: var(--text-main);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      font-family: inherit;
-    }
-
-    .tree-result-btn:hover, .tree-result-btn:focus {
-      background: var(--primary-soft);
-      border-color: var(--card-hover-border);
-    }
-
-    .tree-result-btn.active {
-      border-color: var(--primary);
-      background: var(--primary-soft);
-    }
-
-    .tree-result-btn b {
-      display: block;
-      font-size: 14.5px;
-      color: var(--text-main);
-    }
-
-    .tree-result-btn small {
-      display: block;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: 12px;
-      margin-top: 2px;
-    }
-
-    .tree-detail {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      min-height: 380px;
-      scroll-margin-top: 80px;
-    }
-
-    .tree-heading-num {
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .tree-recipe-title {
-      font-size: clamp(24px, 3.4vw, 36px);
-      font-weight: 800;
-      line-height: 1.2;
-      margin: 6px 0 10px;
-      color: var(--text-main);
-    }
-
-    .tree-recipe-subtitle {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .tree-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 16px 0 20px;
-    }
-
-    .tree-summary-box {
-      background: var(--primary-soft);
-      border: 1px solid var(--card-border);
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-    }
-
-    .tree-summary-box b {
-      display: block;
-      color: var(--primary);
-      font-size: 26px;
-      line-height: 1.2;
-      font-weight: 800;
-    }
-
-    .tree-summary-box span {
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .tree-section-label {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin: 24px 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Nested UL/LI tree with lines */
-    .tree, .tree ul {
-      list-style: none;
-      margin: 0;
-      padding-left: 0;
-    }
-
-    .tree ul {
-      border-left: 2px solid var(--card-border);
-      margin: 7px 0 7px 14px;
-      padding-left: 18px;
-    }
-
-    .tree li {
-      margin: 7px 0;
-      position: relative;
-      min-width: 0;
-    }
-
-    .tree ul > li:before {
-      content: "";
-      position: absolute;
-      left: -18px;
-      top: 15px;
-      width: 12px;
-      border-top: 2px solid var(--card-border);
-    }
-
-    .tree details {
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-sm);
-      background: var(--input-bg);
-      padding: 9px 12px;
-      transition: background-color 0.2s;
-    }
-
-    .tree summary {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      list-style: none;
-    }
-
-    .tree summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .tree summary:before {
-      content: "▸";
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .tree details[open] > summary:before {
-      content: "▾";
-    }
-
-    .node-name {
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .node-id, .node-tip {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .node-tip {
-      background: var(--primary-soft);
-      padding: 2px 7px;
-      border-radius: var(--radius-pill);
-    }
-
-    .leaf {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-      padding: 7px 10px;
-    }
-
-    .leaf .node-name {
-      font-weight: 600;
-    }
-
-    .leaf.cycle {
-      color: var(--heart);
-    }
-
-    .base-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .base-chip {
-      background: var(--input-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-sm);
-      padding: 6px 12px;
-      font-size: 13.5px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      color: var(--text-main);
-    }
-
-    .base-chip:hover {
-      border-color: var(--primary);
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
-    .tree-notice-box {
-      margin-top: 18px;
-      padding: 12px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      line-height: 1.5;
-      background: var(--gold-bg);
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-    }
-
-    .btn-card-tree {
-      margin-top: 10px;
-      width: 100%;
-      background: var(--primary-soft);
-      border: 1px solid rgba(88, 129, 87, 0.25);
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 12.5px;
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: all 0.15s ease;
-      font-family: inherit;
-    }
-
-    .btn-card-tree:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    /* Modal for Tree View from Grid */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal-dialog {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      width: 100%;
-      max-width: 780px;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 26px;
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: var(--primary-soft);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.15s ease;
-    }
-
-    .modal-close:hover {
-      background: var(--heart);
-      color: #fff;
-      border-color: var(--heart);
-    }
-
-    @media (max-width: 991px) {
-      .recipe-tree-layout {
-        grid-template-columns: 1fr;
-      }
-      .tree-catalog {
-        position: static;
-      }
-      .tree-results {
-        max-height: min(280px, 35vh);
-      }
-      .tree-detail {
-        padding: 18px;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -1670,38 +1254,14 @@
         </div>
       </div>
 
-      <!-- Meta Bar with View Switcher -->
+      <!-- Meta Bar -->
       <div class="recipes-meta-bar">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <div id="recipeCountStats">Đang tải công thức...</div>
-          <div id="activeFilterBadge" style="display:none;"></div>
-        </div>
-        <div class="view-toggle-wrap">
-          <button type="button" class="view-toggle-btn active" id="btnViewTree" data-view="tree" title="Xem dạng danh sách và cây nguyên liệu nhiều cấp">
-            <span>🌳</span> Cây công thức
-          </button>
-          <button type="button" class="view-toggle-btn" id="btnViewGrid" data-view="grid" title="Xem toàn bộ dạng lưới thẻ công thức">
-            <span>🗂️</span> Lưới thẻ
-          </button>
-        </div>
+        <div id="recipeCountStats">Đang tải công thức...</div>
+        <div id="activeFilterBadge" style="display:none;"></div>
       </div>
 
-      <!-- Tree Layout (Split view: Catalog + Detail Tree) -->
-      <div class="recipe-tree-layout" id="recipeTreeLayout">
-        <aside class="tree-catalog" aria-label="Danh sách món">
-          <div class="tree-catalog-head">
-            <span class="tree-catalog-title">Tra cứu món</span>
-            <span id="treeCatalogCount" class="tab-count"></span>
-          </div>
-          <div id="treeCatalogResults" class="tree-results"></div>
-        </aside>
-        <article id="recipeTreeDetail" class="tree-detail" aria-live="polite">
-          <!-- Rendered by JS -->
-        </article>
-      </div>
-
-      <!-- Grid Recipes (Cards) -->
-      <div class="recipe-grid" id="recipeGrid" style="display:none;">
+      <!-- Grid Recipes -->
+      <div class="recipe-grid" id="recipeGrid">
         <!-- Rendered by JS -->
       </div>
     </section>
@@ -2343,17 +1903,6 @@
       </div>
     </section>
 
-
-  <!-- ==================== MODAL XEM CÂY CÔNG THỨC ==================== -->
-  <div class="modal-backdrop" id="recipeModal" role="dialog" aria-modal="true" aria-labelledby="modalRecipeTitle">
-    <div class="modal-dialog">
-      <button class="modal-close" id="modalCloseBtn" aria-label="Đóng cửa sổ">✕</button>
-      <div id="modalRecipeBody">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </div>
-
   </main>
 
   <!-- ==================== SCROLL TO TOP ==================== -->
@@ -2507,9 +2056,9 @@
       { points: 12534000, title: 'Trăng và sao', icon: '✨' }
     ];
 
-    // 1.6 DỮ LIỆU CÔNG THỨC ĐÃ HIỆU ĐÍNH (#2 ĐẾN #236 - 235 CÔNG THỨC GỐC)
+    // 1.6 DỮ LIỆU CÔNG THỨC GỐC (#2 ĐẾN #236 - 235 CÔNG THỨC)
     const rawRecipesString = `
-2|Bánh bao hấp lá tre|hạt gạo thơm
+2|Bánh bao hấp lá tre|lá gạo thơm
 3|Bánh bao hấp|bột+bắp cải+hành tây
 4|Bánh bao ngọt|gạo thơm
 5|Bánh bao nhân cà ri|bột+bột cà ri
@@ -2581,17 +2130,17 @@
 71|Cà rốt hầm sữa|hành tây+cà rốt+sữa bò
 72|Cà tím nước tương|cà tím+nước tương
 73|Cà tím nướng|cà tím
-74|Cá ướp|cá ngừ+hành tây+dầu ô liu
+74|Cá ướp|cá ngừ+hành tây+dầu oliu
 75|Cá và khoai tây chiên|bột+khoai tây+dầu ăn+cá chẽm
-76|Cá xay|cá bống đen
-77|Canh bắp|bơ+bắp+sữa bò
+76|Cá xay|cá bóng đen
+77|Canh bắp|bột+bắp+sữa bò
 78|Canh bí đỏ|bí đỏ
 79|Canh củ cải đỏ|củ cải đỏ+sữa bò
-80|Canh hành tây|bơ+hành tây
+80|Canh hành tây|bột+hành tây
 81|Canh khoai tây|phomat+bơ+khoai tây+hành tây
 82|Canh măng tây|măng tây
 83|Canh rau|phomat thảo mộc+hành tây+hoa cúc
-84|Canh trứng|hành tây+trứng gà
+84|Canh trứng hành tây|trứng gà+hành tây
 85|Capuchino|cà phê nóng+sữa bò tốt
 86|Cháo sữa|chén cơm+sữa bò
 87|Cháo thảo mộc|chén cơm+phomat thảo mộc
@@ -2599,34 +2148,34 @@
 89|Chén cơm|gạo
 90|Chuối phủ sôcôla|chuối+sôcôla
 91|Cocktail trái cây|chai rượu vang đỏ+chuối+táo
-92|Cơm bọc đậu phụ|chén cơm+đậu hủ chiên
+92|Cơm bọc đậu phụ|chiên cơm+đậu hũ chiên
 93|Cơm cà ri|chén cơm+bột cà ri
 94|Cơm chiên trứng|chén cơm+rong biển+trứng gà
 95|Cơm chiên|chén cơm+dầu ăn+trứng gà
 96|Cơm đút lò|bơ+bột+chén cơm+hành tây+sữa bò
 97|Cơm mì chiên|bột gạo+bắp cải+cà rốt+dầu ăn
 98|Cơm nấm càng cua|chén cơm+nấm càng cua
-99|Cơm nắm chiên|cơm nắm+dầu ăn
+99|Cơm nấm chiên|cơm nấm+dầu ăn
 100|Cơm nấm|chén cơm+nấm đông cô+nấm càng cua
 101|Cơm nắm|chén cơm+rong biển
-102|Cơm tấm|chén cơm+đậu hủ chiên+cà rốt+nấm đông cô
+102|Cơm tấm|chén cơm+đậu hũ chiên+cà rốt+nấm đông cô
 103|Cơm thập cẩm|chén cơm+cà chua+hành tây
 104|Cơm tôm lăn bột chiên|chén cơm+tôm lăn bột chiên
 105|Cơm trộn hạt dẻ|hạt dẻ đóng chai+chén cơm
 106|Cơm trứng chiên|chén cơm+dầu ăn+trứng gà+sữa bò
 107|Cơm trứng|chén cơm+trứng gà
-108|Cơm ý|chén cơm+cà chua+hành tây+dầu ăn
+108|Cơm ý chiên|cơm+cà chua+hành tây+dầu ăn
 109|Củ cải trắng xào|củ cải trắng+bơ
-110|Đậu hủ chiên|đậu hủ+dầu ăn
-111|Đậu hủ hấp giấy bạc|đậu hủ chiên+cà rốt+đậu nành
-112|Đậu hủ khô|đậu hủ
-113|Đậu hủ lăn bột chiên|đậu hủ+bột+dầu ăn
-114|Đậu hủ lạnh|đậu hủ+rong biển
-115|Đậu hủ luộc|đậu hủ+sữa đậu nành
-116|Đậu hủ nhồi thịt bò|đậu hủ+dầu ăn+nấm càng cua
+110|Đậu hũ chiên|đậu hũ+dầu ăn
+111|Đậu hũ hấp giấy bạc|đậu hũ chiên+cà rốt+đậu hành
+112|Đậu hũ khô|đậu hũ
+113|Đậu hũ lăn bột chiên|đậu hũ+bột+dầu ăn
+114|Đậu hũ lạnh|đậu hũ+rong biển
+115|Đậu hũ luộc|đậu hũ+sữa đậu nành
+116|Đậu hũ nhồi thịt bò|đậu hũ+dầu ăn+nấm càng cua
 117|Đậu hũ nóng|sữa đậu nành
-118|Đậu hủ nước tương|đậu hủ+nước tương
-119|Đậu hủ|đậu nành
+118|Đậu hũ nước tương|đậu hũ+nước tương
+119|Đậu hũ|đậu nành
 120|Gạo thơm rang|gạo thơm+rong biển
 121|Gạo thơm rang|gạo thơm+rong biển
 122|Giò cháo quẩy|bột+dầu ăn+trứng gà vàng
@@ -2636,7 +2185,7 @@
 126|Há cảo|bột+cà rốt+nấm đông cô+nấm càng cua
 127|Hải sản sống cắt lát|cá ngừ
 128|Kem lạnh|bơ+trứng gà đen
-129|Kẹo dâu|dâu+gạo thơm
+129|Kẹo dầu|dầu+gạo thơm
 130|Khoai lang luộc|bơ+khoai lang+trứng gà
 131|Khoai lang nướng|khoai lang
 132|Khoai tây chiên kiểu Pháp|khoai tây+dầu ăn
@@ -2678,12 +2227,12 @@
 168|Ngũ cốc bắp|bắp+sữa bò
 169|Nui nghiền hành tây|nui mì xào+phomat+hành tây
 170|Nui xào mì|pageti+cà chua
-171|Nước sốt cà chua|cà chua+bánh mì+dầu ô liu
+171|Nước sốt cà chua|cà chua+bánh mì+dầu oliu
 172|Nước sốt dầu|bánh mì+phomat+dầu hạt nho tím
 173|Nước sốt hồng|bánh mì+ly rượu vang đỏ+phomat
 174|Nước sốt phomat|bánh mì+phomat
 175|Nước sốt sôcôla|bánh mì+sôcôla
-176|Nước sốt ớt bột|ớt vàng+dầu ô liu
+176|Nước xốt ớt bột|ớt vàng+dầu ôliu
 177|Pageti|bột+dầu ăn
 178|Pa-get-ti rau|bột+dầu thảo mộc+bơ thảo mộc
 179|Phomat nấu chảy|phomat+khoai tây
@@ -2693,7 +2242,7 @@
 183|Rong biển hầm|rong biển
 184|Sa lách cà chua|cà chua
 185|Sa lách củ cải trắng|củ cải trắng
-186|Sa lách dầm cà|phomat+cà chua+dầu ăn
+186|Sa lách dấm cà|phomat+cà chua+dầu ăn
 187|Sa lách hành tây|hành tây
 188|Sa lách khoai tây|khoai tây+sữa bò
 189|Sa lách mì ống|pageti+dưa leo+cà chua
@@ -2714,7 +2263,7 @@
 204|Tách nước ép trà|hộp nước ép trà
 205|Tách trà 4 mùa|hộp trà 4 mùa
 206|Tách trà anh đào|hộp trà anh đào
-207|Tách trà táo|hộp trà táo
+207|Tách trà áo|hộp trà táo
 208|Tách trà bạc hà|hộp trà bạc hà
 209|Tách trà cam|hộp trà cam
 210|Tách trà chuối|hộp trà chuối
@@ -2745,15 +2294,7 @@
 235|Trứng luộc|trứng gà
 236|Trứng ốp la|trứng gà+dầu ăn+sữa bò`;
 
-    // 1.7 DỮ LIỆU CỐI XAY GIÓ ĐÃ XÁC MINH TRONG GAME
-    const windmillRecipes = [
-      { id: 174, name: 'Pho-mát', ingredients: ['sữa bò'], kind: 'windmill' },
-      { id: 177, name: 'Pho-mát thảo mộc', ingredients: ['hoa cúc', 'sữa bò'], kind: 'windmill' },
-      { id: 180, name: 'Yogurt', ingredients: ['bạc hà', 'sữa bò'], kind: 'windmill' },
-      { id: 185, name: 'Bơ', ingredients: ['dầu ăn', 'sữa bò'], kind: 'windmill' }
-    ];
-
-    // Phân tích dữ liệu công thức
+    // Parse recipes into clean structured array
     const recipes = rawRecipesString.trim().split('\n').map(line => {
       const [id, name, ...rest] = line.split('|');
       const ingRaw = rest.join('|');
@@ -2765,144 +2306,6 @@
         ingredients: ingredients
       };
     });
-
-    // Map tra cứu cho cây công thức
-    const recipesByName = new Map();
-    [...recipes, ...windmillRecipes].forEach(r => {
-      const key = normalizeVN(r.name);
-      if (!recipesByName.has(key)) recipesByName.set(key, r);
-    });
-
-    // Bảng bí danh tên gọi để giải quyết đồng nghĩa
-    const recipeAliases = new Map([
-      ['sa lach thap cam', 'salach thap cam'],
-      ['com ca ri huyen thoai', 'ca ri huyen thoai'],
-      ['phomat', 'pho-mat'],
-      ['pho mat', 'pho-mat'],
-      ['phomat thao moc', 'pho-mat thao moc'],
-      ['pho mat thao moc', 'pho-mat thao moc'],
-      ['dau hu', 'dau hu'],
-      ['dau hu chien', 'dau hu chien'],
-      ['banh kep', 'banh kep'],
-      ['banh kep khoai tay', 'banh kep khoai tay'],
-      ['dau oliu', 'dau o liu']
-    ]);
-
-    function findRecipe(name) {
-      const key = normalizeVN(name);
-      return recipesByName.get(recipeAliases.get(key) || key) || null;
-    }
-
-    // Bảng phân loại nguồn gốc nguyên liệu
-    const origins = new Map();
-    function labelOrigins(names, label) {
-      names.split('|').forEach(name => origins.set(normalizeVN(name), label));
-    }
-    labelOrigins('gạo|gạo thơm|hạt gạo thơm|hành tây|khoai tây|cà chua|cà rốt|bắp cải|táo|khoai lang|bắp|chuối|dưa leo|dâu|rau dền|bí đỏ|cà tím|đậu nành|nho tím|việt quất|măng tây|củ cải trắng|củ cải đỏ|đậu que|súp lơ|ớt vàng|cam|thơm|dầu hạt nho tím', 'Nông sản · trồng và thu hoạch');
-    labelOrigins('trứng gà|trứng gà đen|trứng gà vàng|trứng gà đen (vàng)|sữa bò|sữa bò tốt|sữa bò hảo hạng', 'Sản phẩm vật nuôi · thu hoạch');
-    labelOrigins('cá chẽm|cá ngừ|cá thu|cá chép bạc|cá bống đen|cá hồi|cá bóng đen', 'Thủy sản · câu cá hoặc nuôi hồ');
-    labelOrigins('rong biển', 'Vật phẩm biển · lượm nhặt');
-    labelOrigins('hoa cúc|bạc hà|oải hương|nấm đông cô|nấm càng cua|nấm cục|nấm độc', 'Thảo mộc / nấm rừng · hái lượm');
-    labelOrigins('bột|bột gạo|bột lúa mạch xanh|bột lúa mạch tím|bột cà ri|bột làm bột viên', 'Cối xay gió · xay ngũ cốc & gia vị');
-    labelOrigins('món ăn thất bại', 'Sản phẩm nấu bếp không thành công');
-
-    function getOriginFor(name) {
-      const key = normalizeVN(name);
-      if (origins.has(key)) return origins.get(key);
-      if (key.startsWith('chai ruou ') || key.startsWith('ly ruou ')) return 'Rượu ủ lên men · Cối xay 1';
-      if (key.startsWith('hop tra ') || key.startsWith('tach tra ')) return 'Trà pha chế · Cối xay 1 & Bếp';
-      if (key.includes('dong chai')) return 'Vật phẩm bảo quản đóng chai';
-      return 'Chưa rõ nguồn gốc cụ thể';
-    }
-
-    // Thu thập các thành phần trung gian và nguyên liệu đầu cuối
-    function collectIngredients(recipe, seen = new Set(), intermediates = new Map(), endpoints = new Map()) {
-      const key = normalizeVN(recipe.name);
-      if (seen.has(key)) return { intermediates, endpoints };
-      const next = new Set(seen);
-      next.add(key);
-
-      for (const ingredient of recipe.ingredients) {
-        const child = findRecipe(ingredient);
-        if (child) {
-          intermediates.set(normalizeVN(child.name), child.name);
-          collectIngredients(child, next, intermediates, endpoints);
-        } else {
-          endpoints.set(normalizeVN(ingredient), ingredient);
-        }
-      }
-      return { intermediates, endpoints };
-    }
-
-    // Kết xuất đệ quy cây nguyên liệu
-    function renderIngredientNode(name, ancestors) {
-      const child = findRecipe(name);
-      if (!child) {
-        return `<li class="leaf"><span class="node-name">${escapeHtml(name)}</span><span class="node-tip">${escapeHtml(getOriginFor(name))}</span></li>`;
-      }
-      const key = normalizeVN(child.name);
-      if (ancestors.has(key)) {
-        return `<li class="leaf cycle">${escapeHtml(name)} · vòng lặp dữ liệu</li>`;
-      }
-      const next = new Set(ancestors);
-      next.add(key);
-      const source = child.kind === 'windmill' ? '⚙️ Cối xay gió' : '🍳 Món ăn';
-      return `<li>
-        <details open>
-          <summary>
-            <span class="node-name">${escapeHtml(name)}</span>
-            <span class="node-id">${source} #${child.id} · ${child.ingredients.length} thành phần</span>
-          </summary>
-          <ul>
-            ${child.ingredients.map(part => renderIngredientNode(part, next)).join('')}
-          </ul>
-        </details>
-      </li>`;
-    }
-
-    // Tạo HTML bảng phân tích chi tiết của 1 món ăn
-    function buildRecipeDetailHtml(recipe) {
-      if (!recipe) {
-        return '<div class="empty-state"><div class="empty-icon">🍳</div><div class="empty-text">Chọn một món để xem cây nguyên liệu nhiều cấp.</div></div>';
-      }
-      const { intermediates, endpoints } = collectIngredients(recipe);
-      const leaves = [...endpoints.values()].sort((a, b) => a.localeCompare(b, 'vi'));
-      const ancestors = new Set([normalizeVN(recipe.name)]);
-
-      return `
-        <div class="tree-heading-num">CÔNG THỨC #${recipe.id}</div>
-        <h3 class="tree-recipe-title">${escapeHtml(recipe.name)}</h3>
-        <p class="tree-recipe-subtitle">Thành phần trực tiếp và các bước chế biến nguyên liệu trung gian nhiều cấp.</p>
-
-        <div class="tree-summary-grid">
-          <div class="tree-summary-box">
-            <b>${intermediates.size}</b>
-            <span>Sản phẩm trung gian có công thức</span>
-          </div>
-          <div class="tree-summary-box">
-            <b>${endpoints.size}</b>
-            <span>Nguyên liệu đầu cuối hoặc đồ thô</span>
-          </div>
-        </div>
-
-        <div class="tree-section-label">🥗 Nguyên liệu trực tiếp</div>
-        <div class="recipe-ingredients" style="margin-bottom: 18px;">
-          ${recipe.ingredients.map(item => `<span class="ing-chip" data-ingredient="${escapeHtml(item)}" title="Lọc các món dùng ${escapeHtml(item)}">${escapeHtml(item)}</span>`).join('')}
-        </div>
-
-        <div class="tree-section-label">🌳 Cây công thức nhiều cấp (Mở rộng từng bước)</div>
-        <ul class="tree">
-          ${recipe.ingredients.map(item => renderIngredientNode(item, ancestors)).join('')}
-        </ul>
-
-        <div class="tree-section-label">🌾 Danh sách nguyên liệu đầu cuối (Gốc)</div>
-        <div class="base-list">
-          ${leaves.map(item => `<span class="base-chip" data-ingredient="${escapeHtml(item)}" title="${escapeHtml(getOriginFor(item))} (Bấm để tìm món)">${escapeHtml(item)}</span>`).join('')}
-        </div>
-
-        ${recipe.id === 2 ? '<div class="tree-notice-box">⚠️ Dòng số 2 trong ảnh gốc bị mờ một phần; tên gọi có thể là hạt gạo thơm hoặc lá gạo thơm.</div>' : ''}
-      `;
-    }
 
     /* ========================================================
        2. UTILITIES & FORMATTERS
@@ -3014,112 +2417,34 @@
     });
 
     /* ========================================================
-       5. RENDER RECIPES TAB (GRID & TREE INTEGRATED)
+       5. RENDER RECIPES TAB
        ======================================================== */
     const recipeSearchInput = document.getElementById('recipeSearchInput');
     const recipeClearBtn = document.getElementById('recipeClearBtn');
     const recipeGrid = document.getElementById('recipeGrid');
-    const recipeTreeLayout = document.getElementById('recipeTreeLayout');
-    const treeCatalogResults = document.getElementById('treeCatalogResults');
-    const treeCatalogCount = document.getElementById('treeCatalogCount');
-    const recipeTreeDetail = document.getElementById('recipeTreeDetail');
     const recipeCountStats = document.getElementById('recipeCountStats');
     const popularTagsContainer = document.getElementById('popularTagsContainer');
     const activeFilterBadge = document.getElementById('activeFilterBadge');
 
-    const btnViewTree = document.getElementById('btnViewTree');
-    const btnViewGrid = document.getElementById('btnViewGrid');
-
-    const recipeModal = document.getElementById('recipeModal');
-    const modalCloseBtn = document.getElementById('modalCloseBtn');
-    const modalRecipeBody = document.getElementById('modalRecipeBody');
-
     let currentSelectedIngredient = null;
-    let selectedRecipeId = 65; // Món mặc định: Cà ri huyền thoại (#65)
-    let currentViewMode = 'tree'; // 'tree' hoặc 'grid'
-
-    // Chuyển đổi View Mode
-    function setViewMode(mode) {
-      currentViewMode = mode;
-      if (mode === 'tree') {
-        btnViewTree.classList.add('active');
-        btnViewGrid.classList.remove('active');
-        recipeTreeLayout.style.display = 'grid';
-        recipeGrid.style.display = 'none';
-      } else {
-        btnViewGrid.classList.add('active');
-        btnViewTree.classList.remove('active');
-        recipeTreeLayout.style.display = 'none';
-        recipeGrid.style.display = 'grid';
-      }
-    }
-
-    btnViewTree.addEventListener('click', () => setViewMode('tree'));
-    btnViewGrid.addEventListener('click', () => setViewMode('grid'));
-
-    // Modal helpers
-    function openRecipeModal(recipeId) {
-      const recipe = recipes.find(r => r.id === recipeId);
-      if (!recipe) return;
-      modalRecipeBody.innerHTML = buildRecipeDetailHtml(recipe);
-      recipeModal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-
-      // Attach click listeners to chips inside modal
-      modalRecipeBody.querySelectorAll('.ing-chip, .base-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const ing = chip.getAttribute('data-ingredient');
-          closeRecipeModal();
-          filterByIngredient(ing);
-        });
-      });
-    }
-
-    function closeRecipeModal() {
-      recipeModal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    modalCloseBtn.addEventListener('click', closeRecipeModal);
-    recipeModal.addEventListener('click', (e) => {
-      if (e.target === recipeModal) closeRecipeModal();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && recipeModal.classList.contains('open')) {
-        closeRecipeModal();
-      }
-    });
-
-    // Lọc theo nguyên liệu nhanh
-    function filterByIngredient(ing) {
-      if (currentSelectedIngredient === ing) {
-        currentSelectedIngredient = null;
-        recipeSearchInput.value = '';
-      } else {
-        currentSelectedIngredient = ing;
-        recipeSearchInput.value = ing;
-      }
-      renderRecipes();
-      recipeSearchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
 
     // Tính tần suất các nguyên liệu phổ biến
     function initPopularIngredients() {
       const freq = {};
       recipes.forEach(r => {
         r.ingredients.forEach(ing => {
-          const clean = ing.replace(/\s*\([^)]*\)/g, '').trim();
+          const clean = ing.replace(/\s*\([^)]*\)/g, '').trim(); // gỡ phụ chú trong ngoặc nếu có
           freq[clean] = (freq[clean] || 0) + 1;
         });
       });
 
-      // Lấy top 15 nguyên liệu dùng nhiều nhất
+      // Lấy top 14 nguyên liệu dùng nhiều nhất (trên 5 lần)
       const sorted = Object.entries(freq)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 15);
+        .slice(0, 14);
 
       popularTagsContainer.innerHTML = sorted.map(([name, count]) => {
-        return `<button type="button" class="tag-chip" data-ing="${escapeHtml(name)}">
+        return `<button class="tag-chip" data-ing="${escapeHtml(name)}">
           <span>${escapeHtml(name)}</span>
           <span class="tag-count">${count}</span>
         </button>`;
@@ -3128,20 +2453,17 @@
       popularTagsContainer.querySelectorAll('.tag-chip').forEach(btn => {
         btn.addEventListener('click', () => {
           const ing = btn.getAttribute('data-ing');
-          filterByIngredient(ing);
-        });
-      });
-    }
-
-    function renderDetailPanel() {
-      const recipe = recipes.find(item => item.id === selectedRecipeId);
-      recipeTreeDetail.innerHTML = buildRecipeDetailHtml(recipe);
-
-      // Add click listeners to ingredient chips inside detail panel
-      recipeTreeDetail.querySelectorAll('.ing-chip, .base-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const ing = chip.getAttribute('data-ingredient');
-          filterByIngredient(ing);
+          if (currentSelectedIngredient === ing) {
+            currentSelectedIngredient = null;
+            btn.classList.remove('active');
+            recipeSearchInput.value = '';
+          } else {
+            currentSelectedIngredient = ing;
+            popularTagsContainer.querySelectorAll('.tag-chip').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            recipeSearchInput.value = ing;
+          }
+          renderRecipes();
         });
       });
     }
@@ -3171,38 +2493,12 @@
 
         return idMatches ||
                normName.includes(normQ) ||
-               normIng.includes(normQ) ||
-               (r.id === 65 && 'com ca ri huyen thoai'.includes(normQ));
+               normIng.includes(normQ);
       });
 
-      // Cập nhật thông số thống kê
+      // Thống kê
       recipeCountStats.innerHTML = `Đang hiển thị <strong>${filtered.length}</strong> / <strong>${recipes.length}</strong> công thức`;
-      treeCatalogCount.textContent = `${filtered.length} món`;
 
-      // Cập nhật món được chọn cho chế độ Tree
-      if (filtered.length && !filtered.some(r => r.id === selectedRecipeId)) {
-        selectedRecipeId = filtered[0].id;
-      }
-      if (!filtered.length) {
-        selectedRecipeId = null;
-      }
-
-      // 1. Render Tree Catalog Results
-      if (filtered.length === 0) {
-        treeCatalogResults.innerHTML = '<div class="empty-state" style="padding:25px 10px;"><div class="empty-text">Không có món nào phù hợp.</div></div>';
-      } else {
-        treeCatalogResults.innerHTML = filtered.map(r => `
-          <button class="tree-result-btn${r.id === selectedRecipeId ? ' active' : ''}" type="button" data-id="${r.id}" aria-pressed="${r.id === selectedRecipeId}">
-            <b>${escapeHtml(r.name)}</b>
-            <small>#${r.id} · ${escapeHtml(r.ingredients.join(' · '))}</small>
-          </button>
-        `).join('');
-      }
-
-      // Render Tree Detail Panel
-      renderDetailPanel();
-
-      // 2. Render Grid Recipes
       if (filtered.length === 0) {
         recipeGrid.innerHTML = `
           <div class="empty-state">
@@ -3211,68 +2507,43 @@
             <button class="btn-clear" style="margin-top:14px;display:inline-flex;" onclick="clearRecipeSearch()">Xóa tìm kiếm</button>
           </div>
         `;
-      } else {
-        recipeGrid.innerHTML = filtered.map(r => {
-          const ingredientsHtml = r.ingredients.map(ing => {
-            return `<span class="ing-chip" data-ingredient="${escapeHtml(ing)}" title="Lọc các món dùng ${escapeHtml(ing)}">
-              ${escapeHtml(ing)}
-            </span>`;
-          }).join('');
+        return;
+      }
 
-          return `
-            <article class="recipe-card">
-              <div>
-                <div class="recipe-header">
-                  <div class="recipe-id">#${r.id}</div>
-                  <div class="recipe-name">${escapeHtml(r.name)}</div>
-                </div>
-                <div class="recipe-ingredients">
-                  ${ingredientsHtml}
-                </div>
-              </div>
-              <button type="button" class="btn-card-tree" data-recipe-id="${r.id}">
-                <span>🌳</span> Xem cây công thức chi tiết
-              </button>
-            </article>
-          `;
+      recipeGrid.innerHTML = filtered.map(r => {
+        const ingredientsHtml = r.ingredients.map(ing => {
+          return `<span class="ing-chip" data-ingredient="${escapeHtml(ing)}" title="Xem các món dùng ${escapeHtml(ing)}">
+            ${escapeHtml(ing)}
+          </span>`;
         }).join('');
 
-        // Listeners for ingredient chips inside grid cards
-        recipeGrid.querySelectorAll('.ing-chip').forEach(chip => {
-          chip.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const ing = chip.getAttribute('data-ingredient');
-            filterByIngredient(ing);
-          });
-        });
+        return `
+          <article class="recipe-card">
+            <div>
+              <div class="recipe-header">
+                <div class="recipe-id">#${r.id}</div>
+                <div class="recipe-name">${escapeHtml(r.name)}</div>
+              </div>
+              <div class="recipe-ingredients">
+                ${ingredientsHtml}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
 
-        // Listeners for "Xem cây" button inside grid cards
-        recipeGrid.querySelectorAll('.btn-card-tree').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const rId = parseInt(btn.getAttribute('data-recipe-id'), 10);
-            openRecipeModal(rId);
-          });
+      // Add click listeners to ingredients chips inside cards
+      recipeGrid.querySelectorAll('.ing-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const ing = chip.getAttribute('data-ingredient');
+          recipeSearchInput.value = ing;
+          currentSelectedIngredient = ing;
+          renderRecipes();
+          recipeSearchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
-      }
-    }
-
-    // Xử lý sự kiện click danh sách món ở Tree Catalog
-    treeCatalogResults.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-id]');
-      if (!btn) return;
-      selectedRecipeId = Number(btn.getAttribute('data-id'));
-      
-      // Update active state in catalog
-      treeCatalogResults.querySelectorAll('.tree-result-btn').forEach(b => {
-        b.classList.toggle('active', Number(b.getAttribute('data-id')) === selectedRecipeId);
       });
-      renderDetailPanel();
-
-      if (window.matchMedia('(max-width: 991px)').matches) {
-        recipeTreeDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+    }
 
     function clearRecipeSearch() {
       recipeSearchInput.value = '';
@@ -3284,7 +2555,6 @@
 
     recipeSearchInput.addEventListener('input', renderRecipes);
     recipeClearBtn.addEventListener('click', clearRecipeSearch);
-
 
     /* ========================================================
        6. RENDER WAREHOUSE TAB

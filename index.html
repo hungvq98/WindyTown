@@ -1609,7 +1609,238 @@
         gap: 8px;
       }
     }
+
+    /* =========================================
+       ENHANCED UI/UX: FAVORITES, CATEGORIES, KEYBOARD & TOAST
+       ========================================= */
+    /* Custom Pastoral Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-canvas);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* Category Filter Ribbon */
+    .category-pills-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--card-border);
+    }
+
+    .category-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--spring-physics);
+      user-select: none;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .category-pill:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .category-pill:active {
+      transform: scale(0.96);
+    }
+
+    .category-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(43, 92, 64, 0.3);
+    }
+
+    /* Favorite Star Button */
+    .btn-fav-toggle {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      padding: 6px;
+      border-radius: 50%;
+      color: var(--text-tertiary);
+      transition: all 0.2s var(--spring-physics);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-fav-toggle:hover {
+      transform: scale(1.2);
+      color: var(--gold);
+    }
+
+    .btn-fav-toggle.is-fav {
+      color: var(--gold);
+      filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4));
+    }
+
+    /* Legendary Recipe Flair */
+    .recipe-card.legendary {
+      border-color: var(--gold-border);
+      background: linear-gradient(180deg, var(--card-bg) 0%, var(--gold-bg) 100%);
+      box-shadow: 0 8px 24px -4px rgba(212, 139, 4, 0.15);
+    }
+
+    .badge-legendary {
+      background: var(--gold);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Jump-to-recipe link in Tree Node */
+    .btn-tree-jump {
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.15s var(--spring-physics);
+      margin-left: 6px;
+    }
+
+    .btn-tree-jump:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* Copy Shopping List Button */
+    .btn-copy-shopping {
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-border);
+      color: var(--primary);
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s var(--spring-physics);
+      margin-left: auto;
+    }
+
+    .btn-copy-shopping:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-copy-shopping:active {
+      transform: scale(0.95);
+    }
+
+    /* Preset Quick Buttons for Calculators */
+    .calc-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .btn-calc-preset {
+      background: var(--bg-canvas);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-calc-preset:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--card-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--primary-border);
+      box-shadow: var(--shadow-lg);
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s var(--spring-physics);
+    }
+
+    .toast-container.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Search input keyboard hint */
+    .search-kbd-hint {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-tertiary);
+      background: var(--bg-canvas);
+      border: 1px solid var(--card-border);
+      padding: 2px 7px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
   </style>
+
 </head>
 <body>
 
@@ -1707,10 +1938,25 @@
           <div class="search-input-wrapper">
             <span class="search-icon">🔍</span>
             <input type="text" id="recipeSearchInput" class="search-input" placeholder="Gõ tên món, nguyên liệu (ví dụ: khoai tây, cá ngừ, sushi, trứng gà, #65)..." autocomplete="off">
+            <span class="search-kbd-hint" title="Phím tắt">/ hoặc Ctrl+K</span>
           </div>
           <button class="btn-clear" id="recipeClearBtn">
             <span>✕</span> Xóa tìm kiếm
           </button>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="category-pills-bar" id="categoryPillsContainer">
+          <button type="button" class="category-pill active" data-cat="all">🌾 Tất cả (235)</button>
+          <button type="button" class="category-pill" data-cat="favorites">⭐ Đã lưu (<span id="favCountBadge">0</span>)</button>
+          <button type="button" class="category-pill" data-cat="masterpiece">👑 Tuyệt phẩm</button>
+          <button type="button" class="category-pill" data-cat="bakery">🥖 Bánh &amp; Bột</button>
+          <button type="button" class="category-pill" data-cat="rice">🍚 Cơm &amp; Cháo</button>
+          <button type="button" class="category-pill" data-cat="noodle">🍜 Mì &amp; Pageti</button>
+          <button type="button" class="category-pill" data-cat="seafood">🐟 Cá &amp; Thủy sản</button>
+          <button type="button" class="category-pill" data-cat="soup">🍲 Canh &amp; Súp</button>
+          <button type="button" class="category-pill" data-cat="tea">🫖 Trà &amp; Rượu</button>
+          <button type="button" class="category-pill" data-cat="potato">🥔 Món Khoai tây</button>
         </div>
 
         <!-- Botanical Tags -->
@@ -1890,6 +2136,11 @@
               <select id="calcWarehouseTo" class="calc-select"></select>
             </div>
           </div>
+          <div class="calc-presets">
+            <button type="button" class="btn-calc-preset" onclick="setWarehousePreset(15, 30)">Khởi đầu: 15 → 30 ô</button>
+            <button type="button" class="btn-calc-preset" onclick="setWarehousePreset(30, 60)">Phổ biến: 30 → 60 ô</button>
+            <button type="button" class="btn-calc-preset" onclick="setWarehousePreset(15, 70)">Max kho: 15 → 70 ô</button>
+          </div>
           <div class="calc-result-box">
             <div class="calc-result-row">
               <span class="calc-result-label">Tổng Dina cần:</span>
@@ -1917,6 +2168,10 @@
               <label class="calc-label">Mục tiêu lên:</label>
               <select id="calcAnimalTo" class="calc-select"></select>
             </div>
+          </div>
+          <div class="calc-presets">
+            <button type="button" class="btn-calc-preset" onclick="setAnimalPreset(4, 9)">Mở hết Gold: 4 → 9 con</button>
+            <button type="button" class="btn-calc-preset" onclick="setAnimalPreset(4, 20)">Max chuồng: 4 → 20 con</button>
           </div>
           <div class="calc-result-box">
             <div class="calc-result-row">
@@ -2672,6 +2927,123 @@
 236|Trứng ốp la|trứng gà+dầu ăn+sữa bò`;
 
     // 1.7 CÔNG THỨC CỐI XAY GIÓ XÁC MINH TRONG GAME
+    // Danh sách món tuyệt phẩm kinh điển
+    const MASTERPIECE_IDS = new Set([6, 14, 47, 63, 64, 65, 66, 67, 96, 180, 202, 230]);
+
+    // Hệ thống phân loại món ăn (Categories)
+    function getRecipeCategory(r) {
+      const name = r.name.toLowerCase();
+      const ings = r.ingredientsRaw.toLowerCase();
+
+      if (name.includes('bánh') || name.includes('bột') || name.includes('pizza') || name.includes('há cảo') || name.includes('bơ cuộn')) return 'bakery';
+      if (name.includes('cơm') || name.includes('cháo') || name.includes('gạo rang')) return 'rice';
+      if (name.includes('mì') || name.includes('pageti') || name.includes('nui')) return 'noodle';
+      if (name.includes('cá ') || name.includes('hải sản') || name.includes('tôm') || name.includes('sushi')) return 'seafood';
+      if (name.includes('canh') || name.includes('súp') || name.includes('hầm')) return 'soup';
+      if (name.includes('trà') || name.includes('rượu') || name.includes('cocktail') || name.includes('cà phê') || name.includes('capuchino') || name.includes('bia')) return 'tea';
+      if (name.includes('trứng') || ings.includes('trứng')) return 'egg';
+      if (name.includes('khoai tây') || ings.includes('khoai tây')) return 'potato';
+      return 'other';
+    }
+
+    // Quản lý Yêu thích (Favorites) qua localStorage
+    let userFavorites = new Set();
+    try {
+      const savedFavs = JSON.parse(localStorage.getItem('nlcg_favorites') || '[]');
+      if (Array.isArray(savedFavs)) userFavorites = new Set(savedFavs);
+    } catch(e) {}
+
+    function saveFavorites() {
+      try {
+        localStorage.setItem('nlcg_favorites', JSON.stringify([...userFavorites]));
+      } catch(e) {}
+      updateFavoriteCountBadge();
+    }
+
+    function toggleFavorite(id, e) {
+      if (e) e.stopPropagation();
+      if (userFavorites.has(id)) {
+        userFavorites.delete(id);
+        showToast('⭐', 'Đã bỏ lưu món #' + id);
+      } else {
+        userFavorites.add(id);
+        showToast('🌟', 'Đã thêm món #' + id + ' vào danh sách yêu thích!');
+      }
+      saveFavorites();
+      renderRecipes();
+    }
+
+    function updateFavoriteCountBadge() {
+      const el = document.getElementById('favCountBadge');
+      if (el) el.textContent = userFavorites.size;
+    }
+
+    // Toast Notification helper
+    let toastTimeout = null;
+    function showToast(icon, msg) {
+      const toastEl = document.getElementById('toastNotification');
+      const iconEl = document.getElementById('toastIcon');
+      const msgEl = document.getElementById('toastMsg');
+      if (!toastEl) return;
+
+      iconEl.textContent = icon || '✨';
+      msgEl.textContent = msg || '';
+      toastEl.classList.add('show');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toastEl.classList.remove('show');
+      }, 2400);
+    }
+
+    // Copy Shopping List
+    function copyIngredientsList(recipe) {
+      if (!recipe) return;
+      const { endpoints } = collectIngredients(recipe);
+      const items = [...endpoints.values()].join(', ');
+      const text = recipe.name + ' (#' + recipe.id + ') cần nguyên liệu gốc: ' + items;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋', 'Đã sao chép nguyên liệu gốc vào bộ nhớ tạm!');
+      }).catch(() => {
+        showToast('⚠️', 'Không thể sao chép tự động.');
+      });
+    }
+
+    // Jump to intermediate recipe from tree node
+    window.jumpToRecipeByName = function(recipeName) {
+      const r = findRecipe(recipeName);
+      if (!r) return;
+      selectedRecipeId = r.id;
+      recipeSearchInput.value = '';
+      currentSelectedIngredient = null;
+      currentCategory = 'all';
+      updateCategoryPillsUI();
+      renderRecipes();
+      
+      // If modal open, update modal body
+      if (recipeModal && recipeModal.classList.contains('open')) {
+        openRecipeModal(r.id);
+      } else {
+        const detailEl = document.getElementById('recipeTreeDetail');
+        if (detailEl) detailEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      showToast('🔍', 'Đang xem giải phẫu: ' + r.name);
+    };
+
+    // Preset helpers for calculators
+    window.setWarehousePreset = function(fromVal, toVal) {
+      const f = document.getElementById('calcWarehouseFrom');
+      const t = document.getElementById('calcWarehouseTo');
+      if (f && t) { f.value = fromVal; t.value = toVal; calculateWarehouseCost(); }
+    };
+
+    window.setAnimalPreset = function(fromVal, toVal) {
+      const f = document.getElementById('calcAnimalFrom');
+      const t = document.getElementById('calcAnimalTo');
+      if (f && t) { f.value = fromVal; t.value = toVal; calculateAnimalCost(); }
+    };
+
     const windmillRecipes = [
       { id: 174, name: 'Pho-mát', ingredients: ['sữa bò'], kind: 'windmill' },
       { id: 177, name: 'Pho-mát thảo mộc', ingredients: ['hoa cúc', 'sữa bò'], kind: 'windmill' },
@@ -2777,6 +3149,7 @@
           <summary>
             <span class="node-name">${escapeHtml(name)}</span>
             <span class="node-id">${source} #${child.id} · ${child.ingredients.length} thành phần</span>
+            <button type="button" class="btn-tree-jump" onclick="event.stopPropagation(); jumpToRecipeByName('${escapeHtml(child.name)}')">🔎 Xem món này</button>
           </summary>
           <ul>
             ${child.ingredients.map(part => renderIngredientNode(part, next)).join('')}
@@ -2793,10 +3166,22 @@
       const { intermediates, endpoints } = collectIngredients(recipe);
       const leaves = [...endpoints.values()].sort((a, b) => a.localeCompare(b, 'vi'));
       const ancestors = new Set([normalizeVN(recipe.name)]);
+      const isFav = userFavorites.has(recipe.id);
+      const isMaster = MASTERPIECE_IDS.has(recipe.id);
 
       return `
-        <div class="tree-heading-num">CÔNG THỨC #${recipe.id}</div>
-        <h3 class="tree-recipe-title">${escapeHtml(recipe.name)}</h3>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="tree-heading-num">CÔNG THỨC #${recipe.id}</span>
+              ${isMaster ? '<span class="badge-legendary">👑 Tuyệt phẩm</span>' : ''}
+            </div>
+            <h3 class="tree-recipe-title">${escapeHtml(recipe.name)}</h3>
+          </div>
+          <button type="button" class="btn-fav-toggle${isFav ? ' is-fav' : ''}" onclick="toggleFavorite(${recipe.id}, event)" title="${isFav ? 'Bỏ lưu yêu thích' : 'Lưu món yêu thích'}">
+            ${isFav ? '★' : '☆'}
+          </button>
+        </div>
         <p class="tree-recipe-subtitle">Thành phần trực tiếp và các bước chế biến nguyên liệu trung gian nhiều cấp.</p>
 
         <div class="tree-summary-grid">
@@ -2820,7 +3205,12 @@
           ${recipe.ingredients.map(item => renderIngredientNode(item, ancestors)).join('')}
         </ul>
 
-        <div class="tree-section-label">🌾 Danh sách nguyên liệu đầu cuối (Gốc)</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 0 12px;">
+          <div class="tree-section-label" style="margin:0;">🌾 Danh sách nguyên liệu đầu cuối (Gốc)</div>
+          <button type="button" class="btn-copy-shopping" onclick="copyIngredientsList(recipes.find(r => r.id === ${recipe.id}))">
+            📋 Sao chép nguyên liệu gốc
+          </button>
+        </div>
         <div class="base-list">
           ${leaves.map(item => `<span class="base-chip" data-ingredient="${escapeHtml(item)}" title="${escapeHtml(getOriginFor(item))} (Chạm để tìm món)">${escapeHtml(item)}</span>`).join('')}
         </div>
@@ -3057,6 +3447,23 @@
       });
     }
 
+    let currentCategory = 'all';
+
+    function updateCategoryPillsUI() {
+      document.querySelectorAll('#categoryPillsContainer .category-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-cat') === currentCategory);
+      });
+      updateFavoriteCountBadge();
+    }
+
+    document.querySelectorAll('#categoryPillsContainer .category-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentCategory = btn.getAttribute('data-cat');
+        updateCategoryPillsUI();
+        renderRecipes();
+      });
+    });
+
     function renderRecipes() {
       const query = recipeSearchInput.value.trim();
       const normQ = normalizeVN(query);
@@ -3071,6 +3478,18 @@
       });
 
       const filtered = recipes.filter(r => {
+        // Category filtering
+        if (currentCategory === 'favorites' && !userFavorites.has(r.id)) return false;
+        if (currentCategory === 'masterpiece' && !MASTERPIECE_IDS.has(r.id)) return false;
+        if (currentCategory === 'bakery' && getRecipeCategory(r) !== 'bakery') return false;
+        if (currentCategory === 'rice' && getRecipeCategory(r) !== 'rice') return false;
+        if (currentCategory === 'noodle' && getRecipeCategory(r) !== 'noodle') return false;
+        if (currentCategory === 'seafood' && getRecipeCategory(r) !== 'seafood') return false;
+        if (currentCategory === 'soup' && getRecipeCategory(r) !== 'soup') return false;
+        if (currentCategory === 'tea' && getRecipeCategory(r) !== 'tea') return false;
+        if (currentCategory === 'potato' && getRecipeCategory(r) !== 'potato') return false;
+
+        // Search text filtering
         if (!normQ) return true;
         const normName = normalizeVN(r.name);
         const normIng = normalizeVN(r.ingredientsRaw);
@@ -3099,12 +3518,19 @@
       if (filtered.length === 0) {
         treeCatalogResults.innerHTML = '<div style="padding:32px 10px;text-align:center;color:var(--text-muted);font-weight:700;">Không có món nào phù hợp.</div>';
       } else {
-        treeCatalogResults.innerHTML = filtered.map(r => `
-          <button class="tree-result-btn${r.id === selectedRecipeId ? ' active' : ''}" type="button" data-id="${r.id}" aria-pressed="${r.id === selectedRecipeId}">
-            <b>${escapeHtml(r.name)}</b>
-            <small>#${r.id} · ${escapeHtml(r.ingredients.join(' · '))}</small>
-          </button>
-        `).join('');
+        treeCatalogResults.innerHTML = filtered.map(r => {
+          const isFav = userFavorites.has(r.id);
+          const isMaster = MASTERPIECE_IDS.has(r.id);
+          return `
+            <button class="tree-result-btn${r.id === selectedRecipeId ? ' active' : ''}" type="button" data-id="${r.id}" aria-pressed="${r.id === selectedRecipeId}">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <b>${escapeHtml(r.name)}</b>
+                <span>${isFav ? '<span style="color:var(--gold);">★</span>' : ''} ${isMaster ? '👑' : ''}</span>
+              </div>
+              <small>#${r.id} · ${escapeHtml(r.ingredients.join(' · '))}</small>
+            </button>
+          `;
+        }).join('');
       }
 
       renderDetailPanel();
@@ -3114,12 +3540,14 @@
         recipeGrid.innerHTML = `
           <div style="grid-column:1/-1;padding:50px 20px;text-align:center;background:var(--card-bg);border-radius:var(--radius-lg);border:2px dashed var(--card-border);">
             <div style="font-size:44px;margin-bottom:10px;">🍳</div>
-            <div style="font-size:16px;color:var(--text-muted);font-weight:700;">Không tìm thấy công thức nào cho "<strong>${escapeHtml(query)}</strong>"</div>
+            <div style="font-size:16px;color:var(--text-muted);font-weight:700;">Không tìm thấy công thức nào phù hợp.</div>
             <button class="btn-clear" style="margin-top:16px;display:inline-flex;" onclick="clearRecipeSearch()">Xóa tìm kiếm</button>
           </div>
         `;
       } else {
         recipeGrid.innerHTML = filtered.map(r => {
+          const isFav = userFavorites.has(r.id);
+          const isMaster = MASTERPIECE_IDS.has(r.id);
           const ingredientsHtml = r.ingredients.map(ing => {
             return `<span class="ing-chip" data-ingredient="${escapeHtml(ing)}" title="Lọc các món dùng ${escapeHtml(ing)}">
               ${escapeHtml(ing)}
@@ -3127,11 +3555,17 @@
           }).join('');
 
           return `
-            <article class="recipe-card">
+            <article class="recipe-card${isMaster ? ' legendary' : ''}">
               <div>
                 <div class="recipe-header">
                   <div class="recipe-id">#${r.id}</div>
-                  <div class="recipe-name">${escapeHtml(r.name)}</div>
+                  <div style="flex:1;">
+                    <div class="recipe-name">${escapeHtml(r.name)}</div>
+                    ${isMaster ? '<span class="badge-legendary" style="margin-top:4px;">👑 Tuyệt phẩm</span>' : ''}
+                  </div>
+                  <button type="button" class="btn-fav-toggle${isFav ? ' is-fav' : ''}" onclick="toggleFavorite(${r.id}, event)" title="${isFav ? 'Bỏ lưu yêu thích' : 'Lưu món yêu thích'}">
+                    ${isFav ? '★' : '☆'}
+                  </button>
                 </div>
                 <div class="recipe-ingredients">
                   ${ingredientsHtml}
@@ -3475,6 +3909,38 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+    
+    // Keyboard shortcuts: "/" or Ctrl+K to search, ArrowUp/ArrowDown to navigate catalog
+    window.addEventListener('keydown', (e) => {
+      // Focus search
+      if ((e.key === '/' && document.activeElement !== recipeSearchInput) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) {
+        e.preventDefault();
+        switchTab('tab-recipes');
+        recipeSearchInput.focus();
+        recipeSearchInput.select();
+        showToast('⌨️', 'Đã mở thanh tìm kiếm');
+      }
+
+      // Navigate tree list with Arrow keys when on recipes tab and not typing text
+      if (document.activeElement !== recipeSearchInput && currentViewMode === 'tree') {
+        const visibleButtons = [...treeCatalogResults.querySelectorAll('.tree-result-btn')];
+        if (!visibleButtons.length) return;
+        const currentIndex = visibleButtons.findIndex(b => Number(b.getAttribute('data-id')) === selectedRecipeId);
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIndex = Math.min(visibleButtons.length - 1, currentIndex + 1);
+          visibleButtons[nextIndex].click();
+          visibleButtons[nextIndex].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIndex = Math.max(0, currentIndex - 1);
+          visibleButtons[prevIndex].click();
+          visibleButtons[prevIndex].scrollIntoView({ block: 'nearest' });
+        }
+      }
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
       initPopularIngredients();
       renderRecipes();
@@ -3490,5 +3956,12 @@
       initInventoryCalculator();
     });
   </script>
+
+  <!-- Toast Notification -->
+  <div class="toast-container" id="toastNotification">
+    <span id="toastIcon">✨</span>
+    <span id="toastMsg">Thông báo</span>
+  </div>
+
 </body>
 </html>
